@@ -1,6 +1,35 @@
 def admin():
+    print("Bienvenido administrador. Desea ver las mesas?")
+    print("1. Si")
+    print("2. No")
+    res = int(input("Ingrese el número de su respuesta"))
+    while res != 1 and res != 2:
+             res = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+    if res == 1:
+        print("Lista de mesas disponibles: ")
+        print("Lista de mesas Reservadas: ")
+
+    else: 
+        print("Perfecto, será redireccionado al menú principal.")
+
+    
+     
+
     return
 
+#Función para borrar reservas
+'''def delM(): 
+    print("Mesas disponibles: " m_reservadas[])
+    cancel = int(input("'¿Que reserva desea cancelar?"))
+        if (cancel in lista):
+            delete m_reservadas[i]
+            print(mesa: m_reservadas[i] cancelada) 
+       else:
+            print("esta mesa no esta reservada")
+            cancel = int(input("¿Que reserva desea cancelar?"))
+    return
+'''
+# Función para reservar mesa
 def reserva():
     return
 
@@ -19,3 +48,4 @@ def main():
         print("Gracias por su visita, esperamos verlo pronto.")
 
 main()
+
