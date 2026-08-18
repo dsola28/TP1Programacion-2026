@@ -7,7 +7,7 @@ def reserva():
 
 
 def main():
-    res = input("Bienvenedido a A la mesa!, desea realizar una reserva? (si/no)(en caso de ser administrador, ingrese el código de acceso): "))
+    res = input("Bienvenedido a A la mesa!, desea realizar una reserva? (si/no) (en caso de ser administrador, ingrese el código de acceso): ")
     #código admin: 1010
     if res == "si":
         print("Perfecto, vamos a realizar la reserva.")
