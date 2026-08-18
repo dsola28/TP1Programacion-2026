@@ -44,6 +44,57 @@ def reserva():
             print("El tipo de mesa requerida es: grande.")
         else:
             print("El tamaño de grupo ingresado es demasiado grande para reservar.")
+
+    print("Para continuar con su reserva, por favor seleccione el turno deseado: ")
+    print("1. Mañana")
+    print("2. Tarde")
+    print("3. Noche")
+    turno = int(input("Ingrese el numero de su respuesta: "))
+    if turno == 1:
+        print("Las opciones de horario a la mañana son:")
+        print("1. 8:00")
+        print("2. 9:30")
+        print("3. 11:00")
+
+        horario = int(input("Ingrese el numero de su respuesta: "))
+        if horario == 1:
+            print("Se reervo su pedido.")
+        elif horario == 2:
+            print("Se reservo su pedido")
+        else:
+            print("Se reservo su pedido")
+    elif turno == 2:
+        print("Las opciones de horario a la tarde son: ")
+        print("1. 13:00")
+        print("2. 14:30")
+        print("3. 16:00")
+        print("4. 17:30")
+
+        horario = int(input("Ingrese el numero de su respuesta: "))
+        if horario == 1:
+            print("Se reervo su pedido.")
+        elif horario == 2:
+            print("Se reservo su pedido")
+        elif horario == 3:
+            print("Se reservo su pedido")
+        else:
+            print("Se reservo su pedido")
+    else:
+        print("Las opciones de horario a la noche son: ")
+        print("1. 19:00") 
+        print("2. 20:30")
+        print("3. 22:00")
+
+        horario = int(input("Ingrese le numero de su respuesta: "))
+        if horario == 1:
+            print("Se reservo su pedido")
+        elif horario == 2:
+            print("Se reservo su pedido")
+        else:
+            print("Se reservo su pedido")
+
+
+
     return mesa
 
 
