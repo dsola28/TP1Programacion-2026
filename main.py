@@ -28,86 +28,73 @@ def admin():
 '''
 # Función para reservar mesa
 def reserva():
+    # mesa = [tamaño,turno,horario]
     mesa = int(input("Ingrese el tamaño de grupo que asistirá: "))
+
     if  mesa != 0:
         if mesa < 0:
-            print()
+            print("")
             print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
         elif mesa >= 1 and mesa <= 4:
-            print()
+            print("")
             print("El tipo de mesa requerida es: chica.")
-        elif mesa >= 5 and mesa <= 7:
-            print()
+        elif mesa >= 5 and mesa <= 10:
+            print("")
             print("El tipo de mesa requerida es: mediana.")
-        elif mesa >= 8 and mesa <= 20:
-            print()
+        elif mesa >= 11 and mesa <= 20:
+            print("")
             print("El tipo de mesa requerida es: grande.")
         else:
-            print()
+            print("")
             print("El tamaño de grupo ingresado es demasiado grande para reservar.")
 
-    print()
-    print("Para continuar con su reserva, por favor seleccione el turno deseado: ")
-    print("1. Mañana")
-    print("2. Tarde")
-    print("3. Noche")
-    print()
+    print("")
+    print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
+    print("1. Mediodia")
+    print("2. Noche")
+    print("")
 
     turno = int(input("Ingrese el número correspondiente a su respuesta: "))
 
     if turno == 1:
-        print()
-        print("Las opciones de horario a la mañana son:")
-        print("1. 8:00")
-        print("2. 9:30")
-        print("3. 11:00")
-        print()
+        print("")
+        print("Las opciones de horario al mediodía son:")
+        print("2. 12:00")
+        print("3. 13:00")
+        print("4. 14:00")
+        print("5. 15:00")
 
         horario = int(input("Ingrese el número correspondiente a su respuesta: "))
 
         if horario == 1:
-            print()
+            print("")
             print("Se reservó su pedido. Disfrute su comida.")
         elif horario == 2:
-            print()
+            print("")
             print("Se reservó su pedido. Disfrute su comida.")
         else:
             print("Se reservó su pedido. Disfrute su comida.")
+
     elif turno == 2:
-        print("Las opciones de horario a la tarde son: ")
-        print("1. 13:00")
-        print("2. 14:30")
-        print("3. 16:00")
-        print("4. 17:30")
+        print("Las opciones de horario a la noche son: ")
+        print("1. 20:00")
+        print("2. 21:00")
+        print("3. 22:00")
+        print("4. 23:00") 
 
         horario = int(input("Ingrese el número correspondiente a su respuesta: "))
         if horario == 1:
-            print()
+            print("")
             print("Se reservó su pedido. Disfrute su comida.")
         elif horario == 2:
-            print()
+            print("")
             print("Se reservó su pedido. Disfrute su comida.")
         elif horario == 3:
-            print()
+            print("")
             print("Se reservó su pedido. Disfrute su comida.")
         else:
             print("Se reservó su pedido. Disfrute su comida.")
-    else:
-        print("Las opciones de horario a la noche son: ")
-        print("1. 19:00") 
-        print("2. 20:30")
-        print("3. 22:00")
 
-        horario = int(input("Ingrese el número correspondiente a su respuesta: "))
-        if horario == 1:
-            print()
-            print("Se reservó su pedido. Disfrute su comida.")
-        elif horario == 2:
-            print()
-            print("Se reservó su pedido. Disfrute su comida.")
-        else:
-            print()
-            print("Se reservó su pedido. Disfrute su comida.")
 
     return mesa, horario, turno
 
