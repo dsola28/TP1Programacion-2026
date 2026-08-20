@@ -26,27 +26,33 @@ def admin():
             cancel = int(input("¿Que reserva desea cancelar?"))
     return
 '''
+
+#Funcion ver reservas noche/mediodia
+
 # Función para reservar mesa
 def reserva():
     # mesa = [tamaño,turno,horario]
     mesa = int(input("Ingrese el tamaño de grupo que asistirá: "))
 
-    if  mesa != 0:
-        if mesa < 0:
-            print("")
-            print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
-        elif mesa >= 1 and mesa <= 4:
-            print("")
-            print("El tipo de mesa requerida es: chica.")
-        elif mesa >= 5 and mesa <= 10:
-            print("")
-            print("El tipo de mesa requerida es: mediana.")
-        elif mesa >= 11 and mesa <= 20:
-            print("")
-            print("El tipo de mesa requerida es: grande.")
-        else:
-            print("")
-            print("El tamaño de grupo ingresado es demasiado grande para reservar.")
+    while mesa < 0 or mesa > 20:
+        print("")
+        print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
+        mesa = int(input("Ingrese el tamaño de grupo que asistirá: "))
+    if mesa < 0:
+        print("")
+        print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
+    elif mesa >= 1 and mesa <= 4:
+        print("")
+        print("El tipo de mesa requerida es: chica.")
+    elif mesa >= 5 and mesa <= 10:
+        print("")
+        print("El tipo de mesa requerida es: mediana.")
+    elif mesa >= 11 and mesa <= 20:
+        print("")
+        print("El tipo de mesa requerida es: grande.")
+    else:
+        print("")
+        print("El tamaño de grupo ingresado es demasiado grande para reservar.")
 
     print("")
     print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
@@ -56,47 +62,38 @@ def reserva():
 
     turno = int(input("Ingrese el número correspondiente a su respuesta: "))
 
+    while turno != 1 and turno != 2:
+        turno = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+
     if turno == 1:
-        print("")
         print("Las opciones de horario al mediodía son:")
-        print("2. 12:00")
-        print("3. 13:00")
-        print("4. 14:00")
-        print("5. 15:00")
+        print("1. 12:00")
+        print("2. 13:00")
+        print("3. 14:00")
+        print("4. 15:00")
 
-        horario = int(input("Ingrese el número correspondiente a su respuesta: "))
+        hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
-        if horario == 1:
-            print("")
-            print("Se reservó su pedido. Disfrute su comida.")
-        elif horario == 2:
-            print("")
-            print("Se reservó su pedido. Disfrute su comida.")
-        else:
-            print("Se reservó su pedido. Disfrute su comida.")
+        while hora != 1 and hora != 2 and hora != 3 and hora != 4:
+            hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
 
-    elif turno == 2:
+        print("Usted eligió el horario: ",hora,"hs .")
+    
+    else:
         print("Las opciones de horario a la noche son: ")
         print("1. 20:00")
         print("2. 21:00")
         print("3. 22:00")
         print("4. 23:00") 
 
-        horario = int(input("Ingrese el número correspondiente a su respuesta: "))
-        if horario == 1:
-            print("")
-            print("Se reservó su pedido. Disfrute su comida.")
-        elif horario == 2:
-            print("")
-            print("Se reservó su pedido. Disfrute su comida.")
-        elif horario == 3:
-            print("")
-            print("Se reservó su pedido. Disfrute su comida.")
-        else:
+        while hora != 1 and hora != 2 and hora != 3 and hora != 4:
+            hora = int(input("Ingrese el número correspondiente a su respuesta: "))
+    
             print("Se reservó su pedido. Disfrute su comida.")
 
 
-    return mesa, horario, turno
+
+    return mesa, hora, turno
 
 
 
