@@ -26,27 +26,33 @@ def admin():
             cancel = int(input("¿Que reserva desea cancelar?"))
     return
 '''
+
+#Funcion ver reservas noche/mediodia
+
 # Función para reservar mesa
 def reserva():
     # mesa = [tamaño,turno,horario]
     mesa = int(input("Ingrese el tamaño de grupo que asistirá: "))
 
-    if  mesa != 0:
-        if mesa < 0:
-            print("")
-            print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
-        elif mesa >= 1 and mesa <= 4:
-            print("")
-            print("El tipo de mesa requerida es: chica.")
-        elif mesa >= 5 and mesa <= 10:
-            print("")
-            print("El tipo de mesa requerida es: mediana.")
-        elif mesa >= 11 and mesa <= 20:
-            print("")
-            print("El tipo de mesa requerida es: grande.")
-        else:
-            print("")
-            print("El tamaño de grupo ingresado es demasiado grande para reservar.")
+    while mesa < 0 or mesa > 20:
+        print("")
+        print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
+        mesa = int(input("Ingrese el tamaño de grupo que asistirá: "))
+    if mesa < 0:
+        print("")
+        print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
+    elif mesa >= 1 and mesa <= 4:
+        print("")
+        print("El tipo de mesa requerida es: chica.")
+    elif mesa >= 5 and mesa <= 10:
+        print("")
+        print("El tipo de mesa requerida es: mediana.")
+    elif mesa >= 11 and mesa <= 20:
+        print("")
+        print("El tipo de mesa requerida es: grande.")
+    else:
+        print("")
+        print("El tamaño de grupo ingresado es demasiado grande para reservar.")
 
     print("")
     print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
@@ -59,10 +65,10 @@ def reserva():
     if turno == 1:
         print("")
         print("Las opciones de horario al mediodía son:")
-        print("2. 12:00")
-        print("3. 13:00")
-        print("4. 14:00")
-        print("5. 15:00")
+        print("1. 12:00")
+        print("2. 13:00")
+        print("3. 14:00")
+        print("4. 15:00")
 
         horario = int(input("Ingrese el número correspondiente a su respuesta: "))
 
