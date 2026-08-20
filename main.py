@@ -77,8 +77,21 @@ def reserva():
         while hora != 1 and hora != 2 and hora != 3 and hora != 4:
             hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
 
+        if hora == 1:
+            hora = "12:00"
+        elif hora == 2:
+            hora = "13:00"  
+        elif hora == 3:
+            hora = "14:00"
+        else:
+            hora = "15:00"
+
+
         print("Usted eligió el horario: ",hora,"hs .")
-    
+        print("Desea confirmar reserva")
+        print("1. Si")
+        print("1. No")
+                       
     else:
         print("Las opciones de horario a la noche son: ")
         print("1. 20:00")
@@ -88,8 +101,20 @@ def reserva():
 
         while hora != 1 and hora != 2 and hora != 3 and hora != 4:
             hora = int(input("Ingrese el número correspondiente a su respuesta: "))
-    
-            print("Se reservó su pedido. Disfrute su comida.")
+
+        if hora == 1:
+            hora = "12:00"
+        elif hora == 2:
+            hora = "13:00"  
+        elif hora == 3:
+            hora = "14:00"
+        else:
+            hora = "15:00"
+
+            print("Usted eligió el horario: ",hora,"hs .")
+            print("Desea confirmar reserva")
+            print("1. Si")
+            print("1. No")
 
 
 
