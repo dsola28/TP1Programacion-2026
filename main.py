@@ -29,6 +29,13 @@ def admin():
             cancel = int(input("¿Que reserva desea cancelar?"))
     return
 '''
+'''def imprimir():
+    for mesa in mesas:
+        for elemento in mesa:
+            print(elemento, end=" ")
+        print()
+'''
+
 # Función para reservar mesa
 def reserva():
     mesa = int(input("Ingrese el tamaño de grupo que asistirá: "))
