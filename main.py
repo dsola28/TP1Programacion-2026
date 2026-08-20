@@ -73,14 +73,18 @@ def reserva():
             print("Se reservó su pedido. Disfrute su comida.")
         else:
             print("Se reservó su pedido. Disfrute su comida.")
+
     elif turno == 2:
+        print()
         print("Las opciones de horario a la tarde son: ")
         print("1. 13:00")
         print("2. 14:30")
         print("3. 16:00")
         print("4. 17:30")
+        print()
 
         horario = int(input("Ingrese el número correspondiente a su respuesta: "))
+        
         if horario == 1:
             print()
             print("Se reservó su pedido. Disfrute su comida.")
@@ -93,10 +97,12 @@ def reserva():
         else:
             print("Se reservó su pedido. Disfrute su comida.")
     else:
+        print()
         print("Las opciones de horario a la noche son: ")
         print("1. 19:00") 
         print("2. 20:30")
         print("3. 22:00")
+        print()
 
         horario = int(input("Ingrese el número correspondiente a su respuesta: "))
         if horario == 1:
