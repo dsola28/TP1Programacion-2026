@@ -78,33 +78,26 @@ def reserva():
 
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
-        if horario == 1:
-            print()
-            print("Se reservó su pedido. Disfrute su comida.")
-        elif horario == 2:
-            print()
-            print("Se reservó su pedido. Disfrute su comida.")
-        else:
-            print("Se reservó su pedido. Disfrute su comida.")
-    elif turno == 2:
-        print("Las opciones de horario a la tarde son: ")
-        print("1. 13:00")
-        print("2. 14:30")
-        print("3. 16:00")
-        print("4. 17:30")
 
-        horario = int(input("Ingrese el número correspondiente a su respuesta: "))
-        if horario == 1:
-            print()
-            print("Se reservó su pedido. Disfrute su comida.")
-        elif horario == 2:
-            print()
-            print("Se reservó su pedido. Disfrute su comida.")
-        elif horario == 3:
-            print()
-            print("Se reservó su pedido. Disfrute su comida.")
+        while hora != 1 and hora != 2 and hora != 3 and hora != 4:
+            hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+
+        if hora == 1:
+            hora = "12:00"
+        elif hora == 2:
+            hora = "13:00"  
+        elif hora == 3:
+            hora = "14:00"
         else:
-            print("Se reservó su pedido. Disfrute su comida.")
+            hora = "15:00"
+
+
+        print("Usted eligió el horario: ",hora,"hs .")
+        print("Desea confirmar reserva")
+        print("1. Si")
+        print("1. No")
+                       
+
     else:
         print()
         print("Las opciones de horario a la noche son: ")
@@ -112,16 +105,25 @@ def reserva():
         print("2. 21:00")
         print("3. 22:00")
 
-        horario = int(input("Ingrese el número correspondiente a su respuesta: "))
-        if horario == 1:
-            print()
-            print("Se reservó su pedido. Disfrute su comida.")
-        elif horario == 2:
-            print()
-            print("Se reservó su pedido. Disfrute su comida.")
+
+        while hora != 1 and hora != 2 and hora != 3 and hora != 4:
+            hora = int(input("Ingrese el número correspondiente a su respuesta: "))
+
+        if hora == 1:
+            hora = "12:00"
+        elif hora == 2:
+            hora = "13:00"  
+        elif hora == 3:
+            hora = "14:00"
         else:
-            print()
-            print("Se reservó su pedido. Disfrute su comida.")
+            hora = "15:00"
+
+            print("Usted eligió el horario: ",hora,"hs .")
+            print("Desea confirmar reserva")
+            print("1. Si")
+            print("1. No")
+
+
 
 
 
