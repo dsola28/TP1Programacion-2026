@@ -1,3 +1,7 @@
+
+mesas = [["nombre","dni","tamaño mesa","turno","horario"]]
+
+
 def admin():
     print("Bienvenido administrador. Desea ver las mesas?")
     print("1. Si")
@@ -14,7 +18,7 @@ def admin():
 
     return
 
-#Función para borrar reservas
+#Función para borrar reservas --> la llama el usuario o el admin dependiendo desde donde se llame la función.
 '''def delM(): 
     print("Mesas disponibles: " m_reservadas[])
     cancel = int(input("'¿Que reserva desea cancelar?"))
@@ -27,32 +31,32 @@ def admin():
     return
 '''
 
-#Funcion ver reservas noche/mediodia
+#Funcion ver reservas noche/mediodia --> admin
+
+#Funcion imprimir --> se llama varias veces
 
 # Función para reservar mesa
 def reserva():
     # mesa = [tamaño,turno,horario]
-    mesa = int(input("Ingrese el tamaño de grupo que asistirá: "))
-
-    while mesa < 0 or mesa > 20:
+    nom = input("Ingrese su nombre (sin apellido): ")
+    id = int(input("Ingrese su DNI (sin comas ni puntos): "))
+    tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
+    while tam < 0 or tam > 20:
         print("")
         print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
-        mesa = int(input("Ingrese el tamaño de grupo que asistirá: "))
-    if mesa < 0:
-        print("")
-        print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
-    elif mesa >= 1 and mesa <= 4:
+        tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
+    if tam >= 1 and tam <= 4:
         print("")
         print("El tipo de mesa requerida es: chica.")
-    elif mesa >= 5 and mesa <= 10:
+        tam = "chica"
+    elif tam >= 5 and tam <= 10:
         print("")
         print("El tipo de mesa requerida es: mediana.")
-    elif mesa >= 11 and mesa <= 20:
-        print("")
-        print("El tipo de mesa requerida es: grande.")
+        tam = "mediana"
     else:
         print("")
-        print("El tamaño de grupo ingresado es demasiado grande para reservar.")
+        print("El tipo de mesa requerida es: grande.")
+        tam = "grande"
 
     print("")
     print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
@@ -74,6 +78,7 @@ def reserva():
 
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
+
         while hora != 1 and hora != 2 and hora != 3 and hora != 4:
             hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
 
@@ -92,12 +97,14 @@ def reserva():
         print("1. Si")
         print("1. No")
                        
+
     else:
+        print()
         print("Las opciones de horario a la noche son: ")
         print("1. 20:00")
         print("2. 21:00")
         print("3. 22:00")
-        print("4. 23:00") 
+
 
         while hora != 1 and hora != 2 and hora != 3 and hora != 4:
             hora = int(input("Ingrese el número correspondiente a su respuesta: "))
@@ -118,7 +125,9 @@ def reserva():
 
 
 
-    return mesa, hora, turno
+
+
+    return 
 
 
 
