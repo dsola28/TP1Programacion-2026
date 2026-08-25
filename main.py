@@ -1,7 +1,6 @@
 
 mesas = [["nombre","dni","tamaño mesa","turno","horario"]]
 
-
 def admin():
     print("Bienvenido administrador. Desea ver las mesas?")
     print("1. Si")
@@ -153,4 +152,3 @@ def main():
 
 
 main()
-
