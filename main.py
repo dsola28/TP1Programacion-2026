@@ -121,23 +121,23 @@ def reserva():
         else:
             hora = "23:00"
 
-            print("Usted eligió el horario: ",hora,"hs .")
-            print("Desea confirmar reserva")
-            print("1. Si")
-            print("2. No")
+    print("Usted eligió el horario: ",hora,"hs .")
+    print("Desea confirmar reserva")
+    print("1. Si")
+    print("2. No")
 
-            reserva = int(input("Ingrese el número correspondiente: "))
-            while reserva != 1 and reserva != 2:
-                reserva = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
-            if reserva == 1:
-                mesaUsuario.append(nom)
-                mesaUsuario.append(id)
-                mesaUsuario.append(tam)
-                mesaUsuario.append(turno)
-                mesaUsuario.append(hora)
-                mesas.append(mesaUsuario)
-            else:
-                print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
+    reserva = int(input("Ingrese el número correspondiente: "))
+    while reserva != 1 and reserva != 2:
+        reserva = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+    if reserva == 1:
+        mesaUsuario.append(nom)
+        mesaUsuario.append(id)
+        mesaUsuario.append(tam)
+        mesaUsuario.append(turno)
+        mesaUsuario.append(hora)
+        mesas.append(mesaUsuario)
+    else:
+        print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
 
 
     return 
@@ -164,7 +164,9 @@ def main():
         elif res == 2:
             id = int(input("Ingrese su DNI con el que realizó su reserva: "))
             resv = list(filter(lambda x: id in x, mesas))
-            print(resv)
+            #print(resv)
+        #matriz = map(lambda x: print(x),mesas)
+        #print(list(matriz))
 
 
 main()
