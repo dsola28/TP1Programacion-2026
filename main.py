@@ -78,7 +78,6 @@ def reserva():
 
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
-
         while hora != 1 and hora != 2 and hora != 3 and hora != 4:
             hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
 
@@ -104,19 +103,23 @@ def reserva():
         print("1. 20:00")
         print("2. 21:00")
         print("3. 22:00")
+        print("4. 23:00")
 
+
+        hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
         while hora != 1 and hora != 2 and hora != 3 and hora != 4:
-            hora = int(input("Ingrese el número correspondiente a su respuesta: "))
+            hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+    
 
         if hora == 1:
-            hora = "12:00"
+            hora = "20:00"
         elif hora == 2:
-            hora = "13:00"  
+            hora = "21:00"  
         elif hora == 3:
-            hora = "14:00"
+            hora = "22:00"
         else:
-            hora = "15:00"
+            hora = "23:00"
 
             print("Usted eligió el horario: ",hora,"hs .")
             print("Desea confirmar reserva")
@@ -132,24 +135,24 @@ def reserva():
 
 
 def main():
-    print()
-    print("Bienvenido a A la mesa!, desea realizar una reserva? (si/no) (en caso de ser administrador, ingrese el código de acceso): ")
+    terminar = False
+    print("Bienvenido a A la mesa!" )
     #código admin: 1010
-    print("1. Sí")
-    print("2. No")
-    print("Ingrese el código para acceder como administrador.")
-    res = int(input("Ingrese el número correspondiente a su respuesta: "))
-    if res == 1:
-        print()
-        print("Perfecto, vamos a realizar la reserva.")
-        reserva()
-    elif res == 1010:
-        print()
-        print("Bienvenido administrador, puede acceder a las funciones de administración.")
-        admin()
-    elif res == 2:
-        print()
-        print("Gracias por su visita, esperamos verlo pronto.")
+    while not terminar:
+        print("Desea realizar una reserva? (si/no) (en caso de ser administrador, ingrese el código de acceso): ")
+        print("1. Sí")
+        print("2. No")
+        print("Ingrese el código para acceder como administrador.")
+        res = int(input("Ingrese el número correspondiente a su respuesta: "))
+        if res == 1:
+            print("Perfecto, vamos a realizar la reserva.")
+            reserva()
+        elif res == 1010:
+            print("Bienvenido administrador, puede acceder a las funciones de administración.")
+            admin()
+        elif res == 2:
+            print("Gracias por su visita, esperamos verlo pronto.")
+            terminar = True
 
 
 main()
