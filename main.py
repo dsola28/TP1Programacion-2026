@@ -32,7 +32,7 @@ def admin():
 '''
 
 #Funcion ver reservas noche/mediodia --> admin
-
+#Funcion ver horarios disponibles en la matriz de mesas
 #Funcion imprimir --> se llama varias veces
 
 # Función para reservar mesa
@@ -139,9 +139,10 @@ def main():
     print("Bienvenido a A la mesa!" )
     #código admin: 1010
     while not terminar:
-        print("Desea realizar una reserva? (si/no) (en caso de ser administrador, ingrese el código de acceso): ")
-        print("1. Sí")
-        print("2. No")
+        print("¿Qué opción desea realizar? (en caso de ser administrador, ingrese el código de acceso): ")
+        print("1. Hacer una reserva")
+        print("2. Ver mi reserva")
+        print("3. Eliminar mi reserva")
         print("Ingrese el código para acceder como administrador.")
         res = int(input("Ingrese el número correspondiente a su respuesta: "))
         if res == 1:
@@ -151,8 +152,9 @@ def main():
             print("Bienvenido administrador, puede acceder a las funciones de administración.")
             admin()
         elif res == 2:
-            print("Gracias por su visita, esperamos verlo pronto.")
-            terminar = True
+            id = int(input("Ingrese su DNI con el que realizó su reserva: "))
+            resv = list(filter(lambda x: id in x, mesas))
+            print(resv)
 
 
 main()
