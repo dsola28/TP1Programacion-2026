@@ -1,7 +1,6 @@
 
 mesas = [["nombre","dni","tamaño mesa","turno","horario"]]
 
-
 def admin():
     print("Bienvenido administrador. Desea ver las mesas?")
     print("1. Si")
@@ -38,6 +37,7 @@ def admin():
 # Función para reservar mesa
 def reserva():
     # mesa = [tamaño,turno,horario]
+    mesaUsuario = []
     nom = input("Ingrese su nombre (sin apellido): ")
     id = int(input("Ingrese su DNI (sin comas ni puntos): "))
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
@@ -124,10 +124,20 @@ def reserva():
             print("Usted eligió el horario: ",hora,"hs .")
             print("Desea confirmar reserva")
             print("1. Si")
-            print("1. No")
+            print("2. No")
 
-
-
+            reserva = int(input("Ingrese el número correspondiente: "))
+            while reserva != 1 and reserva != 2:
+                reserva = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+            if reserva == 1:
+                mesaUsuario.append(nom)
+                mesaUsuario.append(id)
+                mesaUsuario.append(tam)
+                mesaUsuario.append(turno)
+                mesaUsuario.append(hora)
+                mesas.append(mesaUsuario)
+            else:
+                print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
 
 
     return 
@@ -158,4 +168,3 @@ def main():
 
 
 main()
-
