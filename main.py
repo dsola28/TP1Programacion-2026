@@ -1,3 +1,4 @@
+import re
 
 mesas = []
 
@@ -37,7 +38,9 @@ def reserva():
     # mesa = [tamaño,turno,horario]
     mesaUsuario = []
     nom = input("Ingrese su nombre (sin apellido): ")
-    id = int(input("Ingrese su DNI (sin comas ni puntos): "))
+    id = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
+    while not re.match(r"^\d{8}$", id):
+        id = input("Dni invalido. Ingreselo de nuevo: ")
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     while tam < 0 or tam > 20:
         print("")
