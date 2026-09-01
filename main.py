@@ -148,7 +148,7 @@ def reserva():
 def main():
     terminar = False
     print("Bienvenido a A la mesa!" )
-    #código admin: 1010
+    #código admin: 6767
     while not terminar:
 
         print("¿Cómo desea ingresar? ")
@@ -178,7 +178,6 @@ def main():
             if ans == 1:
                 print("Perfecto, vamos a realizar la reserva.")
                 reserva()
-                imprimirMatriz()
                 
             #ver reserva segun dni
             elif ans == 2:
@@ -194,24 +193,26 @@ def main():
         #Administrador
         else: 
             clave = int(input("Ingrese la contraseña de administrador: "))
-            while clave != 1010:
-                print("Error en la clave de administrador.")
-                print("¿Qué desea hacer?")
-                print("1. Volver a ingresar la clave")
-                print("2. Volver al menú inicial")
-                ans = int(input("Ingrese la opcion que desea seleccionar: "))
-                while ans != 1 and ans != 2:
-                    print("Valor incorrecto")
-                    ans = int(input("Ingrese la opcion que desea seleccionar: "))
-                if ans == 2:
-                    print("Perfecto, será redireccionado al menú inicial")
-                    clave = 1010 
-                else:
-                    clave = int(input("Ingrese la contraseña de administrador: "))
+            ans = 0
+            if clave != 6767:
+                print("Contraseña incorrecta, desea reintentar o volver al menú principal?")
+                print("1. Reintentar")
+                print("2. Volver al menú principal")
+                ans = int(input("Ingrese la opción que desea seleccionar: "))
 
-            if ans == 1:
+            while ans == 1 and clave != 6767:
+                clave = int(input("Ingrese la contraseña de administrador: "))
+                if clave != 6767:
+                    print("Error, vuelva a intentarlo: ")
+                else:
+                    ans = 0
+
+            if clave == 1010:
                 print("Bienvenido administrador, puede acceder a las funciones de administración.")
                 admin()
+            else:
+                print("Perfecto, será redireccionado al menú inicial")
+                
 
 
 main()
