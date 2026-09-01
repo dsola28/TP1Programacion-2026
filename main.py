@@ -1,4 +1,4 @@
-
+import re
 mesas = [["nombre","dni","tamaño mesa","turno","horario"]]
 
 def imprimirMatriz(): 
@@ -34,7 +34,9 @@ def reserva():
     # mesa = [tamaño,turno,horario]
     mesaUsuario = []
     nom = input("Ingrese su nombre (sin apellido): ")
-    id = int(input("Ingrese su DNI (sin comas ni puntos): "))
+    id = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
+    while not re.match(r"^\d{8}$", id):
+        id = input("Dni invalido. Ingreselo de nuevo: ")
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     while tam < 0 or tam > 20:
         print("")
@@ -153,7 +155,6 @@ def main():
         if res == 1:
             print("Perfecto, vamos a realizar la reserva.")
             reserva()
-            imprimirmatriz()
         elif res == 1010:
             print("Bienvenido administrador, puede acceder a las funciones de administración.")
             admin()
