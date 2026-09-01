@@ -1,10 +1,10 @@
 
-mesas = [["nombre","dni","tamaño mesa","turno","horario"]]
+mesas = []
 
-def imprimirMatriz(): 
+def imprimirMatriz(tabla): 
     print("Titular ====== DNI ====== Tamaño == Turno == Hora")
-    for i in range (1, len(mesas)):
-        print(mesas[i][0], "======", mesas[i][1],"===", mesas[i][2], "===", mesas[i][3], "===", mesas[i][4])
+    for i in range (0, len(tabla)):
+        print(tabla[i][0], "======", tabla[i][1],"===", tabla[i][2], "===", tabla[i][3], "===", tabla[i][4])
     return
 
 def admin():
@@ -12,13 +12,16 @@ def admin():
     print("1. Ver las mesas reservadas")
     print("2. Volver al menú principal")
     res = int(input("Ingrese el número de su respuesta: "))
+    
     while res != 1 and res != 2:
              res = int(input("Respuesta Inválida. Ingrese el número de su respuesta: "))
+        
     if res == 1:
         print("Lista de mesas Reservadas: ")
         imprimirMatriz()
         print("Perfecto, será redireccionado al menú principal.")
         return
+      
     else: 
         print("Perfecto, será redireccionado al menú principal.")
         return
@@ -167,16 +170,22 @@ def main():
             while ans != 1 and ans != 2 and ans != 3:
                 print("Error número inválido.")
                 ans = int(input("Ingrese el número correspondiente a su respuesta: "))
-
+                
+            #hacer reserva
             if ans == 1:
                 print("Perfecto, vamos a realizar la reserva.")
                 reserva()
                 imprimirMatriz()
+                
+            #ver reserva segun dni
             elif ans == 2:
-                #ver reserva
-                print()
+                id = int(input("Ingrese su DNI con el que realizó su reserva: "))
+                resv = list(filter(lambda x: id in x, mesas))
+                imprimirMatriz(resv)  
+                
+            #borrar reserva con filter map
             else:
-                #borrar reserva con filter map
+                
                 print()
 
         #Administrador
