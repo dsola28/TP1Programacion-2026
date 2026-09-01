@@ -1,6 +1,9 @@
 
 mesas = [["nombre","dni","tamaño mesa","turno","horario"]]
 
+def imprimirmatriz():
+    list(map(print, mesas))
+
 def admin():
     print("Bienvenido administrador. Desea ver las mesas?")
     print("1. Si")
@@ -121,6 +124,7 @@ def reserva():
         else:
             hora = "23:00"
 
+
     print("Usted eligió el horario: ",hora,"hs .")
     print("Desea confirmar reserva")
     print("1. Si")
@@ -140,9 +144,8 @@ def reserva():
         print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
 
 
+
     return 
-
-
 
 def main():
     terminar = False
