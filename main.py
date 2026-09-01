@@ -1,37 +1,29 @@
 
 mesas = [["nombre","dni","tamaño mesa","turno","horario"]]
 
-def imprimirmatriz():
-    list(map(print, mesas))
+def imprimirMatriz(): 
+    print("Titular ====== DNI ====== Tamaño == Turno == Hora")
+    for i in range (1, len(mesas)):
+        print(mesas[i][0], "======", mesas[i][1],"===", mesas[i][2], "===", mesas[i][3], "===", mesas[i][4])
+    return
 
 def admin():
-    print("Bienvenido administrador. Desea ver las mesas?")
-    print("1. Si")
-    print("2. No")
+    print("Bienvenido administrador. Elija la acción a realizar: ")
+    print("1. Ver las mesas reservadas")
+    print("2. Eliminar una reserva")
     res = int(input("Ingrese el número de su respuesta"))
     while res != 1 and res != 2:
              res = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
     if res == 1:
-        print("Lista de mesas disponibles: ")
         print("Lista de mesas Reservadas: ")
+        imprimirMatriz()
+        
 
     else: 
         print("Perfecto, será redireccionado al menú principal.")
 
     return
 
-#Función para borrar reservas --> la llama el usuario o el admin dependiendo desde donde se llame la función.
-'''def delM(): 
-    print("Mesas disponibles: " m_reservadas[])
-    cancel = int(input("'¿Que reserva desea cancelar?"))
-        if (cancel in lista):
-            delete m_reservadas[i]
-            print(mesa: m_reservadas[i] cancelada) 
-       else:
-            print("esta mesa no esta reservada")
-            cancel = int(input("¿Que reserva desea cancelar?"))
-    return
-'''
 
 #Funcion ver reservas noche/mediodia --> admin
 #Funcion ver horarios disponibles en la matriz de mesas
@@ -161,6 +153,7 @@ def main():
         if res == 1:
             print("Perfecto, vamos a realizar la reserva.")
             reserva()
+            imprimirmatriz()
         elif res == 1010:
             print("Bienvenido administrador, puede acceder a las funciones de administración.")
             admin()
