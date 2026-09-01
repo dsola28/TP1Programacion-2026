@@ -1,28 +1,32 @@
 import re
-mesas = [["nombre","dni","tamaño mesa","turno","horario"]]
 
-def imprimirMatriz(): 
+mesas = []
+
+def imprimirMatriz(tabla): 
     print("Titular ====== DNI ====== Tamaño == Turno == Hora")
-    for i in range (1, len(mesas)):
-        print(mesas[i][0], "======", mesas[i][1],"===", mesas[i][2], "===", mesas[i][3], "===", mesas[i][4])
+    for i in range (0, len(tabla)):
+        print(tabla[i][0], "======", tabla[i][1],"===", tabla[i][2], "===", tabla[i][3], "===", tabla[i][4])
     return
 
 def admin():
     print("Bienvenido administrador. Elija la acción a realizar: ")
     print("1. Ver las mesas reservadas")
-    print("2. Eliminar una reserva")
-    res = int(input("Ingrese el número de su respuesta"))
+    print("2. Volver al menú principal")
+    res = int(input("Ingrese el número de su respuesta: "))
+    
     while res != 1 and res != 2:
-             res = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+             res = int(input("Respuesta Inválida. Ingrese el número de su respuesta: "))
+        
     if res == 1:
         print("Lista de mesas Reservadas: ")
         imprimirMatriz()
-        
-
+        print("Perfecto, será redireccionado al menú principal.")
+        return
+      
     else: 
         print("Perfecto, será redireccionado al menú principal.")
-
-    return
+        return
+    
 
 
 #Funcion ver reservas noche/mediodia --> admin
@@ -146,24 +150,68 @@ def main():
     print("Bienvenido a A la mesa!" )
     #código admin: 1010
     while not terminar:
-        print("¿Qué opción desea realizar? (en caso de ser administrador, ingrese el código de acceso): ")
-        print("1. Hacer una reserva")
-        print("2. Ver mi reserva")
-        print("3. Eliminar mi reserva")
-        print("Ingrese el código para acceder como administrador.")
+
+        print("¿Cómo desea ingresar? ")
+        print("1. Ingresar como comensal")
+        print("2. Ingresar como administrador.")
         res = int(input("Ingrese el número correspondiente a su respuesta: "))
+
+        #verificar res dentro de rango
+        while res != 1 and res != 2:
+            print("Error número inválido.")
+            res = int(input("Ingrese el número correspondiente a su respuesta: "))
+
+        #Comensal
         if res == 1:
-            print("Perfecto, vamos a realizar la reserva.")
-            reserva()
-        elif res == 1010:
-            print("Bienvenido administrador, puede acceder a las funciones de administración.")
-            admin()
-        elif res == 2:
-            id = int(input("Ingrese su DNI con el que realizó su reserva: "))
-            resv = list(filter(lambda x: id in x, mesas))
-            #print(resv)
-        #matriz = map(lambda x: print(x),mesas)
-        #print(list(matriz))
+            print("Bienvenido usuario, que acción desea realizar: ")
+            print("1. Hacer una reserva")
+            print("2. Ver mi reserva")
+            print("3. Eliminar mi reserva")
+            ans = int(input("Ingrese el número correspondiente a su respuesta: "))
+
+            #verificar ans dentro de rango}
+            while ans != 1 and ans != 2 and ans != 3:
+                print("Error número inválido.")
+                ans = int(input("Ingrese el número correspondiente a su respuesta: "))
+                
+            #hacer reserva
+            if ans == 1:
+                print("Perfecto, vamos a realizar la reserva.")
+                reserva()
+                imprimirMatriz()
+                
+            #ver reserva segun dni
+            elif ans == 2:
+                id = int(input("Ingrese su DNI con el que realizó su reserva: "))
+                resv = list(filter(lambda x: id in x, mesas))
+                imprimirMatriz(resv)  
+                
+            #borrar reserva con filter map
+            else:
+                
+                print()
+
+        #Administrador
+        else: 
+            clave = int(input("Ingrese la contraseña de administrador: "))
+            while clave != 1010:
+                print("Error en la clave de administrador.")
+                print("¿Qué desea hacer?")
+                print("1. Volver a ingresar la clave")
+                print("2. Volver al menú inicial")
+                ans = int(input("Ingrese la opcion que desea seleccionar: "))
+                while ans != 1 and ans != 2:
+                    print("Valor incorrecto")
+                    ans = int(input("Ingrese la opcion que desea seleccionar: "))
+                if ans == 2:
+                    print("Perfecto, será redireccionado al menú inicial")
+                    clave = 1010 
+                else:
+                    clave = int(input("Ingrese la contraseña de administrador: "))
+
+            if ans == 1:
+                print("Bienvenido administrador, puede acceder a las funciones de administración.")
+                admin()
 
 
 main()
