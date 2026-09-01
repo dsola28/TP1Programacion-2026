@@ -1,10 +1,10 @@
 
-mesas = [["nombre","dni","tamaño mesa","turno","horario"]]
+mesas = []
 
-def imprimirMatriz(): 
+def imprimirMatriz(tabla): 
     print("Titular ====== DNI ====== Tamaño == Turno == Hora")
-    for i in range (1, len(mesas)):
-        print(mesas[i][0], "======", mesas[i][1],"===", mesas[i][2], "===", mesas[i][3], "===", mesas[i][4])
+    for i in range (0, len(tabla)):
+        print(tabla[i][0], "======", tabla[i][1],"===", tabla[i][2], "===", tabla[i][3], "===", tabla[i][4])
     return
 
 def admin():
@@ -17,8 +17,6 @@ def admin():
     if res == 1:
         print("Lista de mesas Reservadas: ")
         imprimirMatriz()
-        
-
     else: 
         print("Perfecto, será redireccionado al menú principal.")
 
@@ -153,13 +151,13 @@ def main():
         if res == 1:
             print("Perfecto, vamos a realizar la reserva.")
             reserva()
-            imprimirmatriz()
         elif res == 1010:
             print("Bienvenido administrador, puede acceder a las funciones de administración.")
             admin()
         elif res == 2:
             id = int(input("Ingrese su DNI con el que realizó su reserva: "))
             resv = list(filter(lambda x: id in x, mesas))
+            imprimirMatriz(resv)
             #print(resv)
         #matriz = map(lambda x: print(x),mesas)
         #print(list(matriz))
