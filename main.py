@@ -27,8 +27,6 @@ def admin():
         print("Perfecto, será redireccionado al menú principal.")
         return
     
-
-
 #Funcion ver reservas noche/mediodia --> admin
 #Funcion ver horarios disponibles en la matriz de mesas
 #Funcion imprimir --> se llama varias veces
@@ -91,8 +89,14 @@ def reserva():
             hora = "15:00"
 
 
-        print("Usted eligió el horario: ",hora,"hs .")
-        print("Desea confirmar reserva")
+        print("")
+        print("Resumen de su reserva:")
+        print("Nombre:", nom)
+        print("DNI:", id)
+        print("Tamaño de mesa:", tam)
+        print("Horario:", hora, "hs.")
+        
+        print("Desea confirmar la reserva?")
         print("1. Si")
         print("2. No")
                        
@@ -128,7 +132,7 @@ def reserva():
     print("Tamaño de mesa:", tam)
     print("Horario:", hora, "hs.")
 
-    print("Desea confirmar reserva?")
+    print("Desea confirmar la reserva?")
     print("1. Si")
     print("2. No")
 
