@@ -22,7 +22,8 @@ def imprimirMatriz(tabla):
 #Funciones de administrador
 
 def admin():
-    print("Bienvenido administrador. Elija la acción a realizar: ")
+    print("---------[ ADMIN ]---------")
+    print("Elija la acción a realizar: ")
     print("1. Ver las mesas reservadas")
     print("2. Volver al menú principal")
     res = int(input("Ingrese el número de su respuesta: "))
@@ -35,11 +36,16 @@ def admin():
     if res == 1:
         print("Lista de mesas Reservadas: ")
         imprimirMatriz(mesas)
+        print("")
         print("Perfecto, será redireccionado al menú principal.")
+        print("")
+        print("---------------------------------------------------")
         return
       
     else: 
         print("Perfecto, será redireccionado al menú principal.")
+        print("")
+        print("---------------------------------------------------")
         return
     
 #Funcion ver reservas noche/mediodia --> admin
@@ -59,9 +65,7 @@ def reserva():
     while id_user in id_usado:
         id_user = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
     id_usado.append(id_user)
-    print("")
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
-    print("")
     while tam < 0 or tam > 20:
         print("")
         print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
