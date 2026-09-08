@@ -6,6 +6,9 @@ horarios_dia = ["12:00","13:00","14:00","15:00"]
 
 horarios_noche = ["20:00","21:00","22:00","23:00"]
 
+id_usado = []
+
+
 
 
 def imprimirMatriz(tabla): 
@@ -47,6 +50,10 @@ def reserva():
     id = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
     while not re.match(r"^\d{8}$", id):
         id = input("Dni invalido. Ingreselo de nuevo: ")
+    while id in id_usado:
+        id = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
+    id_usado.append(id)
+
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     while tam < 0 or tam > 20:
         print("")
