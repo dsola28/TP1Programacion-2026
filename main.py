@@ -82,6 +82,7 @@ def reserva():
         turno = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
 
     if turno == 1:
+        print("")
         print("Las opciones de horario al mediodía son:")
         for i in range(0,len(horarios_dia)):
             print(f"{i+1}. {horarios_dia[i]}")
@@ -90,18 +91,24 @@ def reserva():
 
         while hora != 1 and hora != 2 and hora != 3 and hora != 4:
             hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
-
-        if hora == 1:
+            
+        i = 0
+        while i < len(horarios_dia):
+            if hora == i+1:
+                hora = horarios_dia[i]
+            else:
+                i+=1
+        '''if hora == 1:
             hora = "12:00"
         elif hora == 2:
             hora = "13:00"  
         elif hora == 3:
             hora = "14:00"
         else:
-            hora = "15:00"
+            hora = "15:00"'''
 
     else:
-        print()
+        print("")
         print("Las opciones de horario a la noche son: ")
         for i in range(0,len(horarios_noche)):
             print(f"{i+1}. {horarios_noche[i]}")
@@ -111,16 +118,22 @@ def reserva():
 
         while hora != 1 and hora != 2 and hora != 3 and hora != 4:
             hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
-    
 
-        if hora == 1:
-            hora = "20:00"
-        elif hora == 2:
-            hora = "21:00"  
-        elif hora == 3:
-            hora = "22:00"
-        else:
-            hora = "23:00"
+        i = 0
+        while i < len(horarios_noche):
+            if hora == i+1:
+                hora = horarios_noche[i]
+            else:
+                i+=1
+        ''' if hora == 1:
+                    hora = "20:00"
+                elif hora == 2:
+                    hora = "21:00"  
+                elif hora == 3:
+                    hora = "22:00"
+                else:
+                    hora = "23:00"'''
+        
 
     print("Usted eligió el horario: ",hora,"hs .")
 
@@ -128,7 +141,8 @@ def reserva():
     print("Nombre:", nom)
     print("DNI:", id_user)
     print("Tamaño de mesa:", tam)
-    print("Horario:", hora, "hs.")
+    print("Horario:", hora, " hs.")
+    print("")
     print("Desea confirmar la reserva?")
     print("1. Si")
     print("2. No")
@@ -138,9 +152,9 @@ def reserva():
         reserva = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
     if reserva == 1:
         if hora in horarios_dia:
-          horarios_dia.remove(hora)
+            horarios_dia.remove(hora)
         else: 
-          horarios_noche.remove(hora)
+            horarios_noche.remove(hora)
         mesaUsuario.append(nom)
         mesaUsuario.append(id_user)
         mesaUsuario.append(tam)
@@ -154,8 +168,11 @@ def reserva():
 
 def main():
     terminar = False
+
     print("Bienvenido a A la mesa!" )
+
     #código admin: 6767
+
     while not terminar:
 
         print("¿Cómo desea ingresar? ")
@@ -184,24 +201,30 @@ def main():
             #hacer reserva
             if ans == 1:
                 print("Perfecto, vamos a realizar la reserva.")
+                print("")
                 reserva()
             #ver reserva segun dni
             elif ans == 2:
                 idUser = input("Ingrese su DNI con el que realizó su reserva: ")
                 resv = list(filter(lambda x: x[1] == idUser, mesas))
-                #print(resv)
-                imprimirMatriz(resv)  
+
+                if len(resv) != 0:
+                    print("Se encontró la siguiente reserva: ")
+                    imprimirMatriz(resv)  
+                else:
+                    print("No se encontró ninguna reserva con ese DNI. ")
+                
                 
             #borrar reserva con filter map
             else:
-                id = int(input("Ingrese un DNI con el que realizó su reserva:  "))  
+                idUser = input("Ingrese un DNI con el que realizó su reserva:  ")
 
-                resv = list(filter(lambda x: id in x, mesas))
+                resv = list(filter(lambda x: x[1] == idUser, mesas))
         
                 if len(resv) != 0:
                     print("Se encontró la siguiente reserva: ")
                     imprimirMatriz(resv)
-
+                    print("")
                     print("Desea eliminar esta reserva? ")
                     print("1. Si")
                     print("2. No")
