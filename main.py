@@ -199,11 +199,11 @@ def main():
                     print("1. Si")
                     print("2. No")
 
-                    confirmar = int(input("Ingrese el numero correspondiente a su respuesta: "))
+                    confirmar = int(input("Ingrese el número correspondiente a su respuesta: "))
 
                     while confirmar != 1 and confirmar != 2:
-                        print("Numero invalido.")
-                        confirmar = int(input("Ingrese el numero correspondiente a su respuesta: "))
+                        print("Número inválido.")
+                        confirmar = int(input("Ingrese el número correspondiente a su respuesta: "))
 
                     if confirmar == 1:
                         mesas.remove(resv[0])
@@ -211,14 +211,7 @@ def main():
                     else:
                         print("La reserva no fue eliminada.")
                 else:
-                    print("No se encontro ninguna reserva con ese DNI. ")
-
-
-                    for i in range(0, len(mesas)):
-                        if resv == mesas[i]:
-                            mesas.remove(i)
-                            print("Su mesa ha sido eliminada.")
-
+                    print("No se encontró ninguna reserva con ese DNI. ")
 
         #Administrador
         else: 
