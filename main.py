@@ -2,11 +2,21 @@ import re
 
 mesas = []
 
+horarios_dia = ["12:00","13:00","14:00","15:00"]
+
+horarios_noche = ["20:00","21:00","22:00","23:00"]
+
+id_usado = []
+
+
+
+
 def imprimirMatriz(tabla): 
     print("Titular ====== DNI ====== Tamaño == Turno == Hora")
     for i in range (0, len(tabla)):
         print(tabla[i][0], "======", tabla[i][1],"===", tabla[i][2], "===", tabla[i][3], "===", tabla[i][4])
     return
+
 
 def admin():
     print("Bienvenido administrador. Elija la acción a realizar: ")
@@ -33,12 +43,16 @@ def admin():
 
 # Función para reservar mesa
 def reserva():
-    # mesa = [tamaño,turno,horario]
+    # mesa = [nombre,id,tamaño,turno,horario]
     mesaUsuario = []
     nom = input("Ingrese su nombre (sin apellido): ")
-    id = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
-    while not re.match(r"^\d{8}$", id):
-        id = input("Dni invalido. Ingreselo de nuevo: ")
+    id_user = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
+    while not re.match(r"^\d{8}$", id_user):
+        id_user = input("Dni invalido. Ingreselo de nuevo: ")
+    while id_user in id_usado:
+        id_user = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
+    id_usado.append(id_user)
+
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     while tam < 0 or tam > 20:
         print("")
@@ -69,10 +83,8 @@ def reserva():
 
     if turno == 1:
         print("Las opciones de horario al mediodía son:")
-        print("1. 12:00")
-        print("2. 13:00")
-        print("3. 14:00")
-        print("4. 15:00")
+        for i in range(0,len(horarios_dia)):
+            print(f"{i+1}. {horarios_dia[i]}")
 
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
@@ -88,26 +100,11 @@ def reserva():
         else:
             hora = "15:00"
 
-
-        print("")
-        print("Resumen de su reserva:")
-        print("Nombre:", nom)
-        print("DNI:", id)
-        print("Tamaño de mesa:", tam)
-        print("Horario:", hora, "hs.")
-        
-        print("Desea confirmar la reserva?")
-        print("1. Si")
-        print("2. No")
-                       
-
     else:
         print()
         print("Las opciones de horario a la noche son: ")
-        print("1. 20:00")
-        print("2. 21:00")
-        print("3. 22:00")
-        print("4. 23:00")
+        for i in range(0,len(horarios_noche)):
+            print(f"{i+1}. {horarios_noche[i]}")
 
 
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
@@ -125,13 +122,13 @@ def reserva():
         else:
             hora = "23:00"
 
-    print("")
+    print("Usted eligió el horario: ",hora,"hs .")
+
     print("Resumen de su reserva:")
     print("Nombre:", nom)
-    print("DNI:", id)
+    print("DNI:", id_user)
     print("Tamaño de mesa:", tam)
     print("Horario:", hora, "hs.")
-
     print("Desea confirmar la reserva?")
     print("1. Si")
     print("2. No")
@@ -140,8 +137,12 @@ def reserva():
     while reserva != 1 and reserva != 2:
         reserva = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
     if reserva == 1:
+        if hora in horarios_dia:
+          horarios_dia.remove(hora)
+        else: 
+          horarios_noche.remove(hora)
         mesaUsuario.append(nom)
-        mesaUsuario.append(id)
+        mesaUsuario.append(id_user)
         mesaUsuario.append(tam)
         mesaUsuario.append(turno)
         mesaUsuario.append(hora)
@@ -184,11 +185,11 @@ def main():
             if ans == 1:
                 print("Perfecto, vamos a realizar la reserva.")
                 reserva()
-                
             #ver reserva segun dni
             elif ans == 2:
-                id = int(input("Ingrese su DNI con el que realizó su reserva: "))
-                resv = list(filter(lambda x: id in x, mesas))
+                idUser = input("Ingrese su DNI con el que realizó su reserva: ")
+                resv = list(filter(lambda x: x[1] == idUser, mesas))
+                #print(resv)
                 imprimirMatriz(resv)  
                 
             #borrar reserva con filter map
