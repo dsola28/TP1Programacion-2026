@@ -106,7 +106,6 @@ def reserva():
                 hora = horarios_dia[i]
             else:
                 i+=1
-        
 
     else:
         print("")
