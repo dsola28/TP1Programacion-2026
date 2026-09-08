@@ -136,7 +136,7 @@ def reserva():
         
 
     print("Usted eligió el horario: ",hora,"hs .")
-
+    print("-------------------------")
     print("Resumen de su reserva:")
     print("Nombre:", nom)
     print("DNI:", id_user)
@@ -162,6 +162,8 @@ def reserva():
         mesaUsuario.append(hora)
         mesas.append(mesaUsuario)
         print("Su reserva ha sido confirmada. Lo esperamos en A la mesa!")
+        print("")
+        print("---------------------------------------------------")
     else:
         print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
     return 
@@ -174,7 +176,6 @@ def main():
     #código admin: 6767
 
     while not terminar:
-
         print("¿Cómo desea ingresar? ")
         print("1. Ingresar como comensal")
         print("2. Ingresar como administrador.")
@@ -187,6 +188,7 @@ def main():
 
         #Comensal
         if res == 1:
+            print("---------------------------------------------------")
             print("Bienvenido usuario, que acción desea realizar: ")
             print("1. Hacer una reserva")
             print("2. Ver mi reserva")
@@ -209,10 +211,15 @@ def main():
                 resv = list(filter(lambda x: x[1] == idUser, mesas))
 
                 if len(resv) != 0:
+                    print("")
                     print("Se encontró la siguiente reserva: ")
-                    imprimirMatriz(resv)  
+                    imprimirMatriz(resv)
+                    print("")
+                    print("---------------------------------------------------")
                 else:
                     print("No se encontró ninguna reserva con ese DNI. ")
+                    print("")
+                    print("---------------------------------------------------")
                 
                 
             #borrar reserva con filter map
@@ -237,10 +244,16 @@ def main():
                     if confirmar == 1:
                         mesas.remove(resv[0])
                         print("Su mesa ha sido eliminada.")
+                        print("")
+                        print("---------------------------------------------------")
                     else:
                         print("La reserva no fue eliminada.")
+                        print("")
+                        print("---------------------------------------------------")
                 else:
                     print("No se encontró ninguna reserva con ese DNI. ")
+                    print("")
+                    print("---------------------------------------------------")
 
         #Administrador
         else: 
