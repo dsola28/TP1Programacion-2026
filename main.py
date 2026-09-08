@@ -47,10 +47,6 @@ def admin():
         print("")
         print("---------------------------------------------------")
         return
-    
-#Funcion ver reservas noche/mediodia --> admin
-#Funcion ver horarios disponibles en la matriz de mesas
-#Funcion imprimir --> se llama varias veces
 
 # Función para reservar mesa
 def reserva():
