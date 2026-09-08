@@ -29,7 +29,7 @@ def admin():
         
     if res == 1:
         print("Lista de mesas Reservadas: ")
-        imprimirMatriz()
+        imprimirMatriz(mesas)
         print("Perfecto, será redireccionado al menú principal.")
         return
       
@@ -37,8 +37,6 @@ def admin():
         print("Perfecto, será redireccionado al menú principal.")
         return
     
-
-
 #Funcion ver reservas noche/mediodia --> admin
 #Funcion ver horarios disponibles en la matriz de mesas
 #Funcion imprimir --> se llama varias veces
@@ -62,22 +60,21 @@ def reserva():
         tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     if tam >= 1 and tam <= 4:
         print("")
-        print("El tipo de mesa requerida es: chica.")
-        tam = "chica"
+        print("El tipo de mesa requerida es: Chica.")
+        tam = "Chica"
     elif tam >= 5 and tam <= 10:
         print("")
-        print("El tipo de mesa requerida es: mediana.")
-        tam = "mediana"
+        print("El tipo de mesa requerida es: Mediana.")
+        tam = "Mediana"
     else:
         print("")
-        print("El tipo de mesa requerida es: grande.")
-        tam = "grande"
+        print("El tipo de mesa requerida es: Grande.")
+        tam = "Grande"
 
     print("")
     print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
     print("1. Mediodia")
     print("2. Noche")
-    print("")
 
     turno = int(input("Ingrese el número correspondiente a su respuesta: "))
 
@@ -125,14 +122,14 @@ def reserva():
         else:
             hora = "23:00"
 
-
     print("Usted eligió el horario: ",hora,"hs .")
-    if hora in horarios_dia:
-        horarios_dia.remove(hora)
-    else:
-        horarios_noche.remove(hora)
 
-    print("Desea confirmar reserva")
+    print("Resumen de su reserva:")
+    print("Nombre:", nom)
+    print("DNI:", id_user)
+    print("Tamaño de mesa:", tam)
+    print("Horario:", hora, "hs.")
+    print("Desea confirmar la reserva?")
     print("1. Si")
     print("2. No")
 
@@ -140,17 +137,19 @@ def reserva():
     while reserva != 1 and reserva != 2:
         reserva = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
     if reserva == 1:
+        if hora in horarios_dia:
+          horarios_dia.remove(hora)
+        else: 
+          horarios_noche.remove(hora)
         mesaUsuario.append(nom)
         mesaUsuario.append(id_user)
         mesaUsuario.append(tam)
         mesaUsuario.append(turno)
         mesaUsuario.append(hora)
         mesas.append(mesaUsuario)
+        print("Su reserva ha sido confirmada. Lo esperamos en A la mesa!")
     else:
         print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
-
-
-
     return 
 
 def main():
@@ -177,7 +176,7 @@ def main():
             print("3. Eliminar mi reserva")
             ans = int(input("Ingrese el número correspondiente a su respuesta: "))
 
-            #verificar ans dentro de rango}
+            #verificar ans dentro de rango
             while ans != 1 and ans != 2 and ans != 3:
                 print("Error número inválido.")
                 ans = int(input("Ingrese el número correspondiente a su respuesta: "))
@@ -195,8 +194,30 @@ def main():
                 
             #borrar reserva con filter map
             else:
-                
-                print()
+                id = int(input("Ingrese un DNI con el que realizó su reserva:  "))  
+
+                resv = list(filter(lambda x: id in x, mesas))
+        
+                if len(resv) != 0:
+                    print("Se encontró la siguiente reserva: ")
+                    imprimirMatriz(resv)
+
+                    print("Desea eliminar esta reserva? ")
+                    print("1. Si")
+                    print("2. No")
+
+                    confirmar = int(input("Ingrese el número correspondiente a su respuesta: "))
+
+                    while confirmar != 1 and confirmar != 2:
+                        confirmar = int(input("Respuesta inválida. Ingrese el número correspondiente a su respuesta: "))
+
+                    if confirmar == 1:
+                        mesas.remove(resv[0])
+                        print("Su mesa ha sido eliminada.")
+                    else:
+                        print("La reserva no fue eliminada.")
+                else:
+                    print("No se encontró ninguna reserva con ese DNI. ")
 
         #Administrador
         else: 
