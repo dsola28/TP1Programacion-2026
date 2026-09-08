@@ -19,7 +19,7 @@ def admin():
         
     if res == 1:
         print("Lista de mesas Reservadas: ")
-        imprimirMatriz()
+        imprimirMatriz(mesas)
         print("Perfecto, será redireccionado al menú principal.")
         return
       
@@ -48,22 +48,21 @@ def reserva():
         tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     if tam >= 1 and tam <= 4:
         print("")
-        print("El tipo de mesa requerida es: chica.")
-        tam = "chica"
+        print("El tipo de mesa requerida es: Chica.")
+        tam = "Chica"
     elif tam >= 5 and tam <= 10:
         print("")
-        print("El tipo de mesa requerida es: mediana.")
-        tam = "mediana"
+        print("El tipo de mesa requerida es: Mediana.")
+        tam = "Mediana"
     else:
         print("")
-        print("El tipo de mesa requerida es: grande.")
-        tam = "grande"
+        print("El tipo de mesa requerida es: Grande.")
+        tam = "Grande"
 
     print("")
     print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
     print("1. Mediodia")
     print("2. Noche")
-    print("")
 
     turno = int(input("Ingrese el número correspondiente a su respuesta: "))
 
@@ -95,7 +94,7 @@ def reserva():
         print("Usted eligió el horario: ",hora,"hs .")
         print("Desea confirmar reserva")
         print("1. Si")
-        print("1. No")
+        print("2. No")
                        
 
     else:
@@ -122,9 +121,14 @@ def reserva():
         else:
             hora = "23:00"
 
+    print("")
+    print("Resumen de su reserva:")
+    print("Nombre:", nom)
+    print("DNI:", id)
+    print("Tamaño de mesa:", tam)
+    print("Horario:", hora, "hs.")
 
-    print("Usted eligió el horario: ",hora,"hs .")
-    print("Desea confirmar reserva")
+    print("Desea confirmar reserva?")
     print("1. Si")
     print("2. No")
 
@@ -138,11 +142,9 @@ def reserva():
         mesaUsuario.append(turno)
         mesaUsuario.append(hora)
         mesas.append(mesaUsuario)
+        print("Su reserva ha sido confirmada. Lo esperamos en A la mesa!")
     else:
         print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
-
-
-
     return 
 
 def main():
@@ -169,7 +171,7 @@ def main():
             print("3. Eliminar mi reserva")
             ans = int(input("Ingrese el número correspondiente a su respuesta: "))
 
-            #verificar ans dentro de rango}
+            #verificar ans dentro de rango
             while ans != 1 and ans != 2 and ans != 3:
                 print("Error número inválido.")
                 ans = int(input("Ingrese el número correspondiente a su respuesta: "))
@@ -202,8 +204,7 @@ def main():
                     confirmar = int(input("Ingrese el número correspondiente a su respuesta: "))
 
                     while confirmar != 1 and confirmar != 2:
-                        print("Número inválido.")
-                        confirmar = int(input("Ingrese el número correspondiente a su respuesta: "))
+                        confirmar = int(input("Respuesta inválida. Ingrese el número correspondiente a su respuesta: "))
 
                     if confirmar == 1:
                         mesas.remove(resv[0])
