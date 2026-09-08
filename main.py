@@ -187,8 +187,38 @@ def main():
                 
             #borrar reserva con filter map
             else:
-                
-                print()
+                id = int(input("Ingrese un DNI con el que realizó su reserva:  "))  
+
+                resv = list(filter(lambda x: id in x, mesas))
+        
+                if len(resv) != 0:
+                    print("Se encontró la siguiente reserva: ")
+                    imprimirMatriz(resv)
+
+                    print("Desea eliminar esta reserva? ")
+                    print("1. Si")
+                    print("2. No")
+
+                    confirmar = int(input("Ingrese el numero correspondiente a su respuesta: "))
+
+                    while confirmar != 1 and confirmar != 2:
+                        print("Numero invalido.")
+                        confirmar = int(input("Ingrese el numero correspondiente a su respuesta: "))
+
+                    if confirmar == 1:
+                        mesas.remove(resv[0])
+                        print("Su mesa ha sido eliminada.")
+                    else:
+                        print("La reserva no fue eliminada.")
+                else:
+                    print("No se encontro ninguna reserva con ese DNI. ")
+
+
+                    for i in range(0, len(mesas)):
+                        if resv == mesas[i]:
+                            mesas.remove(i)
+                            print("Su mesa ha sido eliminada.")
+
 
         #Administrador
         else: 
