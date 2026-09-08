@@ -2,6 +2,14 @@ import re
 
 mesas = []
 
+horarios_u = []
+
+horarios = ["12:00","13:00","14:00","15:00","20:00","21:00","22:00","23:00"]
+
+'''def verfHorarios(h):
+    if h in horarios_u:'''
+
+
 def imprimirMatriz(tabla): 
     print("Titular ====== DNI ====== Tamaño == Turno == Hora")
     for i in range (0, len(tabla)):
@@ -72,10 +80,12 @@ def reserva():
 
     if turno == 1:
         print("Las opciones de horario al mediodía son:")
-        print("1. 12:00")
+        '''print("1. 12:00")
         print("2. 13:00")
         print("3. 14:00")
-        print("4. 15:00")
+        print("4. 15:00")'''
+        for i in range(0,4):
+            print(f"{i+1}. {horarios[i]}")
 
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
@@ -101,10 +111,12 @@ def reserva():
     else:
         print()
         print("Las opciones de horario a la noche son: ")
-        print("1. 20:00")
+        '''print("1. 20:00")
         print("2. 21:00")
         print("3. 22:00")
-        print("4. 23:00")
+        print("4. 23:00")'''
+        for i in range(4,8):
+            print(f"{i-3}. {horarios[i]}")
 
 
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
@@ -124,6 +136,8 @@ def reserva():
 
 
     print("Usted eligió el horario: ",hora,"hs .")
+    
+
     print("Desea confirmar reserva")
     print("1. Si")
     print("2. No")
