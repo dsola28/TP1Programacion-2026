@@ -98,14 +98,6 @@ def reserva():
                 hora = horarios_dia[i]
             else:
                 i+=1
-        '''if hora == 1:
-            hora = "12:00"
-        elif hora == 2:
-            hora = "13:00"  
-        elif hora == 3:
-            hora = "14:00"
-        else:
-            hora = "15:00"'''
 
     else:
         print("")
@@ -272,7 +264,7 @@ def main():
                 else:
                     ans = 0
 
-            if clave == 1010:
+            if clave == 6767:
                 print("Bienvenido administrador, puede acceder a las funciones de administración.")
                 admin()
             else:
