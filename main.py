@@ -17,6 +17,7 @@ def imprimirMatriz(tabla):
         print(tabla[i][0], "======", tabla[i][1],"===", tabla[i][2], "===", tabla[i][3], "===", tabla[i][4])
     return
 
+
 def admin():
     print("Bienvenido administrador. Elija la acción a realizar: ")
     print("1. Ver las mesas reservadas")
@@ -44,15 +45,15 @@ def admin():
 
 # Función para reservar mesa
 def reserva():
-    # mesa = [tamaño,turno,horario]
+    # mesa = [nombre,id,tamaño,turno,horario]
     mesaUsuario = []
     nom = input("Ingrese su nombre (sin apellido): ")
-    id = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
-    while not re.match(r"^\d{8}$", id):
-        id = input("Dni invalido. Ingreselo de nuevo: ")
-    while id in id_usado:
-        id = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
-    id_usado.append(id)
+    id_user = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
+    while not re.match(r"^\d{8}$", id_user):
+        id_user = input("Dni invalido. Ingreselo de nuevo: ")
+    while id_user in id_usado:
+        id_user = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
+    id_usado.append(id_user)
 
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     while tam < 0 or tam > 20:
@@ -102,13 +103,6 @@ def reserva():
         else:
             hora = "15:00"
 
-
-        print("Usted eligió el horario: ",hora,"hs .")
-        print("Desea confirmar reserva")
-        print("1. Si")
-        print("1. No")
-                       
-
     else:
         print()
         print("Las opciones de horario a la noche son: ")
@@ -147,7 +141,7 @@ def reserva():
         reserva = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
     if reserva == 1:
         mesaUsuario.append(nom)
-        mesaUsuario.append(id)
+        mesaUsuario.append(id_user)
         mesaUsuario.append(tam)
         mesaUsuario.append(turno)
         mesaUsuario.append(hora)
@@ -192,11 +186,11 @@ def main():
             if ans == 1:
                 print("Perfecto, vamos a realizar la reserva.")
                 reserva()
-                
             #ver reserva segun dni
             elif ans == 2:
-                id = int(input("Ingrese su DNI con el que realizó su reserva: "))
-                resv = list(filter(lambda x: id in x, mesas))
+                idUser = input("Ingrese su DNI con el que realizó su reserva: ")
+                resv = list(filter(lambda x: x[1] == idUser, mesas))
+                #print(resv)
                 imprimirMatriz(resv)  
                 
             #borrar reserva con filter map
