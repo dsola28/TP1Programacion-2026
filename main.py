@@ -1,5 +1,7 @@
 import re
 
+#Declaraciones de matrices
+
 mesas = []
 
 horarios_dia = ["12:00","13:00","14:00","15:00"]
@@ -10,49 +12,55 @@ id_usado = []
 
 
 
-
+#Función para imprimir reservas
 def imprimirMatriz(tabla): 
     print("Titular ====== DNI ====== Tamaño == Turno == Hora")
     for i in range (0, len(tabla)):
         print(tabla[i][0], "======", tabla[i][1],"===", tabla[i][2], "===", tabla[i][3], "===", tabla[i][4])
     return
 
+#Funciones de administrador
 
 def admin():
-    print("Bienvenido administrador. Elija la acción a realizar: ")
+    print("---------[ ADMIN ]---------")
+    print("Elija la acción a realizar: ")
     print("1. Ver las mesas reservadas")
     print("2. Volver al menú principal")
     res = int(input("Ingrese el número de su respuesta: "))
-    
+    print("")
+
+    #verificar res dentro de rango
     while res != 1 and res != 2:
              res = int(input("Respuesta Inválida. Ingrese el número de su respuesta: "))
-        
+    print("")
     if res == 1:
         print("Lista de mesas Reservadas: ")
         imprimirMatriz(mesas)
+        print("")
         print("Perfecto, será redireccionado al menú principal.")
+        print("")
+        print("---------------------------------------------------")
         return
       
     else: 
         print("Perfecto, será redireccionado al menú principal.")
+        print("")
+        print("---------------------------------------------------")
         return
-    
-#Funcion ver reservas noche/mediodia --> admin
-#Funcion ver horarios disponibles en la matriz de mesas
-#Funcion imprimir --> se llama varias veces
 
 # Función para reservar mesa
 def reserva():
     # mesa = [nombre,id,tamaño,turno,horario]
     mesaUsuario = []
     nom = input("Ingrese su nombre (sin apellido): ")
+    print("")
     id_user = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
+    print("")
     while not re.match(r"^\d{8}$", id_user):
         id_user = input("Dni invalido. Ingreselo de nuevo: ")
     while id_user in id_usado:
         id_user = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
     id_usado.append(id_user)
-
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     while tam < 0 or tam > 20:
         print("")
@@ -86,7 +94,7 @@ def reserva():
         print("Las opciones de horario al mediodía son:")
         for i in range(0,len(horarios_dia)):
             print(f"{i+1}. {horarios_dia[i]}")
-
+        print("")
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
         while hora != 1 and hora != 2 and hora != 3 and hora != 4:
@@ -98,21 +106,13 @@ def reserva():
                 hora = horarios_dia[i]
             else:
                 i+=1
-        '''if hora == 1:
-            hora = "12:00"
-        elif hora == 2:
-            hora = "13:00"  
-        elif hora == 3:
-            hora = "14:00"
-        else:
-            hora = "15:00"'''
 
     else:
         print("")
         print("Las opciones de horario a la noche son: ")
         for i in range(0,len(horarios_noche)):
             print(f"{i+1}. {horarios_noche[i]}")
-
+        print("")
 
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
@@ -125,24 +125,20 @@ def reserva():
                 hora = horarios_noche[i]
             else:
                 i+=1
-        ''' if hora == 1:
-                    hora = "20:00"
-                elif hora == 2:
-                    hora = "21:00"  
-                elif hora == 3:
-                    hora = "22:00"
-                else:
-                    hora = "23:00"'''
+      
         
 
     print("Usted eligió el horario: ",hora,"hs .")
+
     print("-------------------------")
     print("Resumen de su reserva:")
     print("Nombre:", nom)
     print("DNI:", id_user)
     print("Tamaño de mesa:", tam)
     print("Horario:", hora, " hs.")
+
     print("")
+
     print("Desea confirmar la reserva?")
     print("1. Si")
     print("2. No")
@@ -150,6 +146,8 @@ def reserva():
     reserva = int(input("Ingrese el número correspondiente: "))
     while reserva != 1 and reserva != 2:
         reserva = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+
+    #Si el usuario elige confirmar la reserva, el sistema agrega todos sus datos a la matris de mesas reservadas.
     if reserva == 1:
         if hora in horarios_dia:
             horarios_dia.remove(hora)
@@ -238,6 +236,8 @@ def main():
 
                     confirmar = int(input("Ingrese el número correspondiente a su respuesta: "))
 
+                    #verificar res dentro de rango
+
                     while confirmar != 1 and confirmar != 2:
                         confirmar = int(input("Respuesta inválida. Ingrese el número correspondiente a su respuesta: "))
 
@@ -257,14 +257,20 @@ def main():
 
         #Administrador
         else: 
+
             clave = int(input("Ingrese la contraseña de administrador: "))
             ans = 0
+
+            #Verifica la contraseña 
+
             if clave != 6767:
                 print("Contraseña incorrecta, desea reintentar o volver al menú principal?")
                 print("1. Reintentar")
                 print("2. Volver al menú principal")
                 ans = int(input("Ingrese la opción que desea seleccionar: "))
 
+            #Si la contraseña ingresada es incorrecta, se solicita ingresarla nuevamente o volver al menú principal
+           
             while ans == 1 and clave != 6767:
                 clave = int(input("Ingrese la contraseña de administrador: "))
                 if clave != 6767:
@@ -272,7 +278,7 @@ def main():
                 else:
                     ans = 0
 
-            if clave == 1010:
+            if clave == 6767:
                 print("Bienvenido administrador, puede acceder a las funciones de administración.")
                 admin()
             else:
