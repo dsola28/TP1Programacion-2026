@@ -2,11 +2,24 @@ import re
 
 #Declaraciones de matrices
 
-mesas = []
+tipo_mesa = ((1, 4, "chica"),(5, 10, "mediana"),(11, 20, "grande"))
 
-horarios_dia = ["12:00","13:00","14:00","15:00"]
+mesas_e = { #mesas existentes
 
-horarios_noche = ["20:00","21:00","22:00","23:00"]
+    "chica":(1,2,3,4),
+    "mediana":(5,6,7),
+    "grande":(8,9)  
+
+}
+    
+horarios = {
+
+    "mañana":["12:00","13:00","14:00","15:00"], 
+    "noche":["20:00","21:00","22:00","23:00"]
+
+}
+
+mesas_r = []
 
 id_usado = []
 
@@ -60,7 +73,6 @@ def reserva():
         id_user = input("Dni invalido. Ingreselo de nuevo: ")
     while id_user in id_usado:
         id_user = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
-    id_usado.append(id_user)
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     while tam < 0 or tam > 20:
         print("")
@@ -92,8 +104,8 @@ def reserva():
     if turno == 1:
         print("")
         print("Las opciones de horario al mediodía son:")
-        for i in range(0,len(horarios_dia)):
-            print(f"{i+1}. {horarios_dia[i]}")
+        for i in range(0,len(horarios["mañana"])):
+            print(f"{i+1}. {horarios["mañana"][i]}")
         print("")
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
@@ -101,17 +113,17 @@ def reserva():
             hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
             
         i = 0
-        while i < len(horarios_dia):
+        while i < len(horarios["mañana"]):
             if hora == i+1:
-                hora = horarios_dia[i]
+                hora = horarios["mañana"][i]
             else:
                 i+=1
 
     else:
         print("")
         print("Las opciones de horario a la noche son: ")
-        for i in range(0,len(horarios_noche)):
-            print(f"{i+1}. {horarios_noche[i]}")
+        for i in range(0,len(horarios["noche"])):
+            print(f"{i+1}. {horarios["mañana"][i]}")
         print("")
 
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
@@ -120,9 +132,9 @@ def reserva():
             hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
 
         i = 0
-        while i < len(horarios_noche):
+        while i < len(horarios["noche"]):
             if hora == i+1:
-                hora = horarios_noche[i]
+                hora = horarios["noche"][i]
             else:
                 i+=1
       
@@ -149,10 +161,12 @@ def reserva():
 
     #Si el usuario elige confirmar la reserva, el sistema agrega todos sus datos a la matris de mesas reservadas.
     if reserva == 1:
-        if hora in horarios_dia:
-            horarios_dia.remove(hora)
+        if hora in horarios["mañana"]:
+            horarios["mañana"].remove(hora)
         else: 
-            horarios_noche.remove(hora)
+            horarios["noche"].remove(hora)
+
+        id_usado.append(id_user) # ahora solo guarda el dni cuando confirma la reserva
         mesaUsuario.append(nom)
         mesaUsuario.append(id_user)
         mesaUsuario.append(tam)
