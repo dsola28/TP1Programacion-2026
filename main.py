@@ -51,7 +51,6 @@ def admin():
 # Función para reservar mesa
 def reserva():
     # mesa = [nombre,id,tamaño,turno,horario]
-    mesaUsuario = []
     nom = input("Ingrese su nombre (sin apellido): ")
     print("")
     id_user = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
@@ -61,6 +60,10 @@ def reserva():
     while id_user in id_usado:
         id_user = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
     id_usado.append(id_user)
+
+    mesa(nom, id_user)
+
+def mesa(nom, id_user):
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     while tam < 0 or tam > 20:
         print("")
@@ -78,6 +81,11 @@ def reserva():
         print("")
         print("El tipo de mesa requerida es: Grande.")
         tam = "Grande"
+
+    horario(nom, id_user, tam)
+
+def horario(nom, id_user, tam):
+    mesaUsuario = []
 
     print("")
     print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
