@@ -48,61 +48,34 @@ def admin():
         print("---------------------------------------------------")
         return
 
-# Función para reservar mesa
-def reserva():
-    # mesa = [nombre,id,tamaño,turno,horario]
-    nom = input("Ingrese su nombre (sin apellido): ")
-    print("")
-    id_user = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
-    print("")
-    while not re.match(r"^\d{8}$", id_user):
-        id_user = input("Dni invalido. Ingreselo de nuevo: ")
-    while id_user in id_usado:
-        id_user = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
-    id_usado.append(id_user)
-
-    mesa(nom, id_user)
-
-def mesa(nom, id_user):
-    tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
-    while tam < 0 or tam > 20:
-        print("")
-        print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
-        tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
-    if tam >= 1 and tam <= 4:
+# Función para determinar el tamaño de la mesa
+def tipo_mesa(t):
+   
+    if t >= 1 and t <= 4:
         print("")
         print("El tipo de mesa requerida es: Chica.")
-        tam = "Chica"
-    elif tam >= 5 and tam <= 10:
+        t = "Chica"
+    elif t >= 5 and t <= 10:
         print("")
         print("El tipo de mesa requerida es: Mediana.")
-        tam = "Mediana"
+        t = "Mediana"
     else:
         print("")
         print("El tipo de mesa requerida es: Grande.")
-        tam = "Grande"
+        t = "Grande"
 
-    horario(nom, id_user, tam)
+    return t
 
-def horario(nom, id_user, tam):
-    mesaUsuario = []
 
-    print("")
-    print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
-    print("1. Mediodia")
-    print("2. Noche")
+def elegir_horario(t):
 
-    turno = int(input("Ingrese el número correspondiente a su respuesta: "))
-
-    while turno != 1 and turno != 2:
-        turno = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
-
-    if turno == 1:
+    if t == 1:
         print("")
         print("Las opciones de horario al mediodía son:")
         for i in range(0,len(horarios_dia)):
             print(f"{i+1}. {horarios_dia[i]}")
         print("")
+
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
         while hora != 1 and hora != 2 and hora != 3 and hora != 4:
@@ -133,11 +106,61 @@ def horario(nom, id_user, tam):
                 hora = horarios_noche[i]
             else:
                 i+=1
-      
+
+
+    return hora
+
+
+# Cuando confirma la reserva, entra a esta función paraguardar los  datos     
+def confirmar_res(n,id,ti,tn,h):
+    mesa = []
+
+    if h in horarios_dia:
+        horarios_dia.remove(h)
+    else: 
+        horarios_noche.remove(h)
+    mesa.append(n)
+    mesa.append(id)
+    mesa.append(ti)
+    mesa.append(tn)
+    mesa.append(h)
+    return mesa
         
 
-    print("Usted eligió el horario: ",hora,"hs .")
+# Función para reservar mesa
+def reserva():
+    mesaUsuario = []
+    # mesa = [nombre,id,tamaño,turno,horario]
+    nom = input("Ingrese su nombre (sin apellido): ")
+    print("")
 
+    id_user = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
+    print("")
+    while not re.match(r"^\d{8}$", id_user):
+        id_user = input("Dni invalido. Ingreselo de nuevo: ")
+    while id_user in id_usado:
+        id_user = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
+    id_usado.append(id_user)
+
+    tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
+    while tam < 0 or tam > 20:
+        print("")
+        print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
+        tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
+    tipo = tipo_mesa(tam)
+
+    print("")
+    print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
+    print("1. Mediodia")
+    print("2. Noche")
+    turno = int(input("Ingrese el número correspondiente a su respuesta: "))
+    while turno != 1 and turno != 2:
+        turno = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+
+    hora = elegir_horario(turno)
+
+    print("Usted eligió el horario: ",hora,"hs .")
+    
     print("-------------------------")
     print("Resumen de su reserva:")
     print("Nombre:", nom)
@@ -155,24 +178,17 @@ def horario(nom, id_user, tam):
     while reserva != 1 and reserva != 2:
         reserva = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
 
-    #Si el usuario elige confirmar la reserva, el sistema agrega todos sus datos a la matris de mesas reservadas.
     if reserva == 1:
-        if hora in horarios_dia:
-            horarios_dia.remove(hora)
-        else: 
-            horarios_noche.remove(hora)
-        mesaUsuario.append(nom)
-        mesaUsuario.append(id_user)
-        mesaUsuario.append(tam)
-        mesaUsuario.append(turno)
-        mesaUsuario.append(hora)
+        mesaUsuario = confirmar_res(nom,id_user,tam,turno,hora)
         mesas.append(mesaUsuario)
         print("Su reserva ha sido confirmada. Lo esperamos en A la mesa!")
         print("")
         print("---------------------------------------------------")
     else:
         print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
-    return 
+
+    return
+     
 
 def main():
     terminar = False
