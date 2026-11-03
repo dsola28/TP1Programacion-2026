@@ -1,15 +1,88 @@
 import re
+import json
+
+# generación y manejo del archivo json
+
+def generar_archivo(nombre_archivo,mesas,horarios):
+    try:
+        with open(nombre_archivo, "w", encoding="UTF-8") as archivo:
+            for turno in horarios:
+                for hora in horarios.key:
+
+
+            json.dump(mesas, archivo, ensure_ascii=False, indent=4)
+    except OSError as error:
+        print("ERROR al generar el archivo:", error)
+    else:
+        print("Archivo JSON generado correctamente.")
+
+
+def generar_reservas(reservas_arch):
+    try:
+        archivo = open(reservas_arch, "w", encoding="UTF-8")
+        archivo.write("Mesas reservadas: ")
+
+    except OSError as error:
+        print("ERROR al trabajar con el archivo:", error)
 
 #Declaraciones de matrices
 
-mesas = []
+tipo_mesa = ((1, 4, "chica"),(5, 10, "mediana"),(11, 20, "grande"))
 
-horarios_dia = ["12:00","13:00","14:00","15:00"]
+mesas_e = { 
 
-horarios_noche = ["20:00","21:00","22:00","23:00"]
+    ("mañana"): {
+        "12:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9] 
+        },
+        "13:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        },
+        "14:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        },
+        "15:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        }
+    },
+    ("noche"): {
+        "20:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        },
+        "21:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        },
+        "22:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        },
+        "23:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        }
+    }
+
+}
+
+# mandar plantilla mesas y horarios a json 
+# cuando se reserva saaar del json y mandar al txt y cuando se borra la reserva sacar del txt y mandar al json de vuelta 
+# acomodar la verificacion de disponibilidad de horarios con el json
 
 id_usado = []
-
 
 
 #Función para imprimir reservas
@@ -48,119 +121,87 @@ def admin():
         print("---------------------------------------------------")
         return
 
-# Función para determinar el tamaño de la mesa
-def tipo_mesa(t):
-   
-    if t >= 1 and t <= 4:
-        print("")
-        print("El tipo de mesa requerida es: Chica.")
-        t = "Chica"
-    elif t >= 5 and t <= 10:
-        print("")
-        print("El tipo de mesa requerida es: Mediana.")
-        t = "Mediana"
-    else:
-        print("")
-        print("El tipo de mesa requerida es: Grande.")
-        t = "Grande"
-
-    return t
-
-
-def elegir_horario(t):
-
-    if t == 1:
-        print("")
-        print("Las opciones de horario al mediodía son:")
-        for i in range(0,len(horarios_dia)):
-            print(f"{i+1}. {horarios_dia[i]}")
-        print("")
-
-        hora = int(input("Ingrese el número correspondiente a su respuesta: "))
-
-        while hora != 1 and hora != 2 and hora != 3 and hora != 4:
-            hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
-            
-        i = 0
-        while i < len(horarios_dia):
-            if hora == i+1:
-                hora = horarios_dia[i]
-            else:
-                i+=1
-
-    else:
-        print("")
-        print("Las opciones de horario a la noche son: ")
-        for i in range(0,len(horarios_noche)):
-            print(f"{i+1}. {horarios_noche[i]}")
-        print("")
-
-        hora = int(input("Ingrese el número correspondiente a su respuesta: "))
-
-        while hora != 1 and hora != 2 and hora != 3 and hora != 4:
-            hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
-
-        i = 0
-        while i < len(horarios_noche):
-            if hora == i+1:
-                hora = horarios_noche[i]
-            else:
-                i+=1
-
-
-    return hora
-
-
-# Cuando confirma la reserva, entra a esta función paraguardar los  datos     
-def confirmar_res(n,id,ti,tn,h):
-    mesa = []
-
-    if h in horarios_dia:
-        horarios_dia.remove(h)
-    else: 
-        horarios_noche.remove(h)
-    mesa.append(n)
-    mesa.append(id)
-    mesa.append(ti)
-    mesa.append(tn)
-    mesa.append(h)
-    return mesa
-        
-
 # Función para reservar mesa
 def reserva():
-    mesaUsuario = []
     # mesa = [nombre,id,tamaño,turno,horario]
+    mesaUsuario = []
     nom = input("Ingrese su nombre (sin apellido): ")
     print("")
-
     id_user = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
     print("")
     while not re.match(r"^\d{8}$", id_user):
         id_user = input("Dni invalido. Ingreselo de nuevo: ")
     while id_user in id_usado:
         id_user = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
-    id_usado.append(id_user)
-
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     while tam < 0 or tam > 20:
         print("")
         print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
         tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
-    tipo = tipo_mesa(tam)
+    if tam >= 1 and tam <= 4:
+        print("")
+        print("El tipo de mesa requerida es: Chica.")
+        tam = "Chica"
+    elif tam >= 5 and tam <= 10:
+        print("")
+        print("El tipo de mesa requerida es: Mediana.")
+        tam = "Mediana"
+    else:
+        print("")
+        print("El tipo de mesa requerida es: Grande.")
+        tam = "Grande"
 
     print("")
     print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
     print("1. Mediodia")
     print("2. Noche")
+
     turno = int(input("Ingrese el número correspondiente a su respuesta: "))
+
     while turno != 1 and turno != 2:
         turno = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
 
-    hora = elegir_horario(turno)
+    if turno == 1:
+        print("")
+        print("Las opciones de horario al mediodía son:")
+        for i in range(0,len(horarios["mañana"])):
+            print(f"{i+1}. {horarios["mañana"][i]}")
+        print("")
+        hora = int(input("Ingrese el número correspondiente a su respuesta: "))
+
+        while hora != 1 and hora != 2 and hora != 3 and hora != 4:
+            hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+            
+        i = 0
+        while i < len(horarios["mañana"]):
+            if hora == i+1:
+                hora = horarios["mañana"][i]
+            else:
+                i+=1
+
+    else:
+        print("")
+        print("Las opciones de horario a la noche son: ")
+        for i in range(0,len(horarios["noche"])):
+            print(f"{i+1}. {horarios["mañana"][i]}")
+        print("")
+
+        hora = int(input("Ingrese el número correspondiente a su respuesta: "))
+
+        while hora != 1 and hora != 2 and hora != 3 and hora != 4:
+            hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+
+        i = 0
+        while i < len(horarios["noche"]):
+            if hora == i+1:
+                hora = horarios["noche"][i]
+            else:
+                i+=1
+      
+        
 
     print("Usted eligió el horario: ",hora,"hs .")
-    
+
     print("-------------------------")
     print("Resumen de su reserva:")
     print("Nombre:", nom)
@@ -178,17 +219,26 @@ def reserva():
     while reserva != 1 and reserva != 2:
         reserva = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
 
+    #Si el usuario elige confirmar la reserva, el sistema agrega todos sus datos a la matris de mesas reservadas.
     if reserva == 1:
-        mesaUsuario = confirmar_res(nom,id_user,tam,turno,hora)
+        if hora in horarios["mañana"]:
+            horarios["mañana"].remove(hora)
+        else: 
+            horarios["noche"].remove(hora)
+
+        id_usado.append(id_user) # ahora solo guarda el dni cuando confirma la reserva
+        mesaUsuario.append(nom)
+        mesaUsuario.append(id_user)
+        mesaUsuario.append(tam)
+        mesaUsuario.append(turno)
+        mesaUsuario.append(hora)
         mesas.append(mesaUsuario)
         print("Su reserva ha sido confirmada. Lo esperamos en A la mesa!")
         print("")
         print("---------------------------------------------------")
     else:
         print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
-
-    return
-     
+    return 
 
 def main():
     terminar = False
@@ -307,7 +357,9 @@ def main():
                 admin()
             else:
                 print("Perfecto, será redireccionado al menú inicial")
-                
 
-
+reservas_arch = "mesas_reservadas"               
+nombre_archivo = "mesas_existentes.json"
+generar_reservas(reservas_arch)
+generar_archivo(nombre_archivo,mesas_e)
 main()
