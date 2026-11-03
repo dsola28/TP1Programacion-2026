@@ -3,14 +3,10 @@ import json
 
 # generación y manejo del archivo json
 
-def generar_archivo(nombre_archivo,mesas,horarios):
+def generar_archivo(nombre_archivo,mesas_e):
     try:
         with open(nombre_archivo, "w", encoding="UTF-8") as archivo:
-            for turno in horarios:
-                for hora in horarios.key:
-
-
-            json.dump(mesas, archivo, ensure_ascii=False, indent=4)
+            json.dump(mesas_e, archivo, ensure_ascii=False, indent=4)
     except OSError as error:
         print("ERROR al generar el archivo:", error)
     else:
