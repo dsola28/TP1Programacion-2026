@@ -1,28 +1,88 @@
 import re
+import json
+
+# generación y manejo del archivo json
+
+def generar_archivo(nombre_archivo,mesas,horarios):
+    try:
+        with open(nombre_archivo, "w", encoding="UTF-8") as archivo:
+            for turno in horarios:
+                for hora in horarios.key:
+
+
+            json.dump(mesas, archivo, ensure_ascii=False, indent=4)
+    except OSError as error:
+        print("ERROR al generar el archivo:", error)
+    else:
+        print("Archivo JSON generado correctamente.")
+
+
+def generar_reservas(reservas_arch):
+    try:
+        archivo = open(reservas_arch, "w", encoding="UTF-8")
+        archivo.write("Mesas reservadas: ")
+
+    except OSError as error:
+        print("ERROR al trabajar con el archivo:", error)
 
 #Declaraciones de matrices
 
 tipo_mesa = ((1, 4, "chica"),(5, 10, "mediana"),(11, 20, "grande"))
 
-mesas_e = { #mesas existentes
+mesas_e = { 
 
-    "chica":(1,2,3,4),
-    "mediana":(5,6,7),
-    "grande":(8,9)  
+    ("mañana"): {
+        "12:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9] 
+        },
+        "13:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        },
+        "14:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        },
+        "15:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        }
+    },
+    ("noche"): {
+        "20:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        },
+        "21:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        },
+        "22:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        },
+        "23:00" : {
+            "chica":[1,2,3,4],
+            "mediana":[5,6,7],
+            "grande":[8,9]
+        }
+    }
 
 }
-    
-horarios = {
 
-    "mañana":["12:00","13:00","14:00","15:00"], 
-    "noche":["20:00","21:00","22:00","23:00"]
-
-}
-
-mesas_r = []
+# mandar plantilla mesas y horarios a json 
+# cuando se reserva saaar del json y mandar al txt y cuando se borra la reserva sacar del txt y mandar al json de vuelta 
+# acomodar la verificacion de disponibilidad de horarios con el json
 
 id_usado = []
-
 
 
 #Función para imprimir reservas
@@ -297,7 +357,9 @@ def main():
                 admin()
             else:
                 print("Perfecto, será redireccionado al menú inicial")
-                
 
-
+reservas_arch = "mesas_reservadas"               
+nombre_archivo = "mesas_existentes.json"
+generar_reservas(reservas_arch)
+generar_archivo(nombre_archivo,mesas_e)
 main()
