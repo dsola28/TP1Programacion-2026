@@ -1,6 +1,4 @@
 Mesas reservadas: 
 
-{'nombre': 'lolo', 'dni': '123455', 'color': 'rojo'}
-
-{'nombre': 'lolo', 'dni': '12345678', 'tipo_mesa': 'chica'}
+{'nombre': 'lolo', 'dni': '123455', 'tipo mesa': 'mezaza', 'turno': 'noche'}
 

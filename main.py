@@ -37,9 +37,11 @@ def agregar_r(reservas_arch,m):
 
 #prueba
 dict = {
-    "nombre" : "lolo",
+    "nombre": "lolo",
     "dni": "123455",
-    "color" : "rojo"
+    "tipo mesa" : "mezaza",
+    "turno" : "noche",
+    
 }
 #
 
@@ -106,14 +108,44 @@ mesas_e = {
 
 id_usado = []
 
-# modificar
-#Función para imprimir reservas
+
+'''# modificar
+#Función para imprimir reservas''
 def imprimirMatriz(tabla): 
     print("Titular ====== DNI ====== Tamaño == Turno == Hora")
     for i in range (0, len(tabla)):
         print(tabla[i][0], "======", tabla[i][1],"===", tabla[i][2], "===", tabla[i][3], "===", tabla[i][4])
-    return
+    return'
+'''
+def imprimir_reservas(reservas_arch):
+ # Abrimos el archivo en modo lectura
+    archivo = open(reservas_arch, "r", encoding="UTF-8")
 
+    print("Reservas: \n")
+    # Recorremos directamente el archivo
+    for linea in archivo:
+        datos = linea.strip().split()
+
+        nombre = datos[0]
+        dni = datos[1]
+        tipo_mesa = datos[2]
+        turno = datos[3]
+        '''
+        horario = datos[4]
+        Numero_Mesa = datos[5]
+        '''
+        print(F'Nombre:      {nombre}')
+        print(F'DNI: {dni}')
+        print(F'Tipo de mesa:      {tipo_mesa}')
+        print(F'Turno:       {turno}')
+
+        '''
+        print(F"Horario" {horario})
+        print(F"Número de mesa: " {numero_mesa})
+        '''
+
+    # Cerramos el archivo
+    archivo.close()
 #modificar
 #Funciones de administrador
 
@@ -403,5 +435,5 @@ generar_archivo(nombre_archivo,mesas_e)
 
 #prueba
 agregar_r(reservas_arch,dict)
-
+imprimir_reservas(reservas_arch)
 main()
