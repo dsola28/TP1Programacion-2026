@@ -39,9 +39,16 @@ def agregar_r(reservas_arch,m):
 dict = {
     "nombre": "lolo",
     "dni": "123455",
-    "tipo mesa" : "mezaza",
+    "tipo_mesa" : "mezaza",
     "turno" : "noche",
     
+}
+
+dict_2 = {
+    "nombre": "roman",
+    "dni": "123455",
+    "tipo_mesa" : "mezaza",
+    "turno" : "dia",
 }
 #
 
@@ -117,6 +124,8 @@ def imprimirMatriz(tabla):
         print(tabla[i][0], "======", tabla[i][1],"===", tabla[i][2], "===", tabla[i][3], "===", tabla[i][4])
     return'
 '''
+
+#funcion para admin para imprimir todas las reservas hechas
 def imprimir_reservas(reservas_arch):
  # Abrimos el archivo en modo lectura
     archivo = open(reservas_arch, "r", encoding="UTF-8")
@@ -124,25 +133,28 @@ def imprimir_reservas(reservas_arch):
     print("Reservas: \n")
     # Recorremos directamente el archivo
     for linea in archivo:
-        datos = linea.strip().split()
+        # Verificamos que la línea tenga texto y además contenga comillas
+        if len(linea) > 3 and "'" in linea:
+            partes = linea.strip().split("'")
+            # Ahora es seguro acceder a los índices
+            datos = [partes[3], partes[5], partes[7], partes[11], partes[15]]
+            nombre = datos[0]
+            dni = datos[1]
+            tipo_mesa = datos[2]
+            turno = datos[3] 
+        # horario = datos[4]
+        #   Numero_Mesa = datos[5]
+            
+            print(F'Nombre:             {nombre}')
+            print(F'DNI:                {dni}')
+            print(F'Tipo de mesa:       {tipo_mesa}')
+            print(F'Turno:              {turno}')
+            print("\n\n")
 
-        nombre = datos[0]
-        dni = datos[1]
-        tipo_mesa = datos[2]
-        turno = datos[3]
-        '''
-        horario = datos[4]
-        Numero_Mesa = datos[5]
-        '''
-        print(F'Nombre:      {nombre}')
-        print(F'DNI: {dni}')
-        print(F'Tipo de mesa:      {tipo_mesa}')
-        print(F'Turno:       {turno}')
-
-        '''
-        print(F"Horario" {horario})
-        print(F"Número de mesa: " {numero_mesa})
-        '''
+       
+        #print(F"Horario" {horario})
+        #print(F"Número de mesa: " {numero_mesa})
+       
 
     # Cerramos el archivo
     archivo.close()
@@ -155,34 +167,25 @@ def admin():
     print("1. Ver las mesas reservadas")
     print("2. Volver al menú principal")
     res = int(input("Ingrese el número de su respuesta: "))
-    print("")
+    print("\n\n")
 
     #verificar res dentro de rango
     while res != 1 and res != 2:
-             res = int(input("Respuesta Inválida. Ingrese el número de su respuesta: "))
-    print("")
+        res = int(input("Respuesta Inválida. Ingrese el número de su respuesta: "))
+    print("\n\n")
     if res == 1:
-        print("Lista de mesas Reservadas: ")
-        imprimirMatriz(mesas)
-        print("")
+        imprimir_reservas(reservas_arch)
+        print("\n\n")
         print("Perfecto, será redireccionado al menú principal.")
-        print("")
+        print("\n\n")
         print("---------------------------------------------------")
         return
       
     else: 
         print("Perfecto, será redireccionado al menú principal.")
-        print("")
+        print("\n\n")
         print("---------------------------------------------------")
         return
-
-'''
-
-tipo_mesa = (
-    (1, 4, "chica"),
-    (5, 10, "mediana"),
-    (11, 20, "grande")
-)
 
 '''
 def verificar_tipo(t):
@@ -198,9 +201,9 @@ def reserva():
     # mesa = [nombre,id,tamaño,turno,horario]
     mesaUsuario = []
     nom = input("Ingrese su nombre (sin apellido): ")
-    print("")
+    print("\n\n")
     id_user = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
-    print("")
+    print("\n\n")
     while not re.match(r"^\d{8}$", id_user):
         id_user = input("Dni invalido. Ingreselo de nuevo: ")
     while id_user in id_usado:
@@ -210,13 +213,13 @@ def reserva():
 
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     while tam < 0 or tam > 20:
-        print("")
+        print("\n\n")
         print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
         tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     tipo = verificar_tipo(tam)
-    '''
     
-    print("")
+    
+    print("\n\n")
     print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
     print("1. Mediodia")
     print("2. Noche")
@@ -227,11 +230,11 @@ def reserva():
         turno = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
 
     if turno == 1:
-        print("")
+        print("\n\n")
         print("Las opciones de horario al mediodía son:")
         for i in range(0,len(horarios["mañana"])):
             print(f"{i+1}. {horarios["mañana"][i]}")
-        print("")
+        print("\n\n")
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
         while hora != 1 and hora != 2 and hora != 3 and hora != 4:
@@ -245,11 +248,11 @@ def reserva():
                 i+=1
 
     else:
-        print("")
+        print("\n\n")
         print("Las opciones de horario a la noche son: ")
         for i in range(0,len(horarios["noche"])):
             print(f"{i+1}. {horarios["mañana"][i]}")
-        print("")
+        print("\n\n")
 
         hora = int(input("Ingrese el número correspondiente a su respuesta: "))
 
@@ -263,7 +266,7 @@ def reserva():
             else:
                 i+=1
       
-    '''
+    
 
         
 
@@ -276,7 +279,7 @@ def reserva():
     print("Tamaño de mesa:", tam)
     #print("Horario:", hora, " hs.")
 
-    print("")
+    print("\n\n")
 
     print("Desea confirmar la reserva?")
     print("1. Si")
@@ -288,12 +291,12 @@ def reserva():
 
     #Si el usuario elige confirmar la reserva, el sistema agrega todos sus datos a la matris de mesas reservadas.
     if reserva == 1:
-        ''''
+        
         if hora in horarios["mañana"]:
             horarios["mañana"].remove(hora)
         else: 
             horarios["noche"].remove(hora)
-        '''
+      
         id_usado.append(id_user) # ahora solo guarda el dni cuando confirma la reserva
         mesa = {
             "nombre" : nom,
@@ -304,7 +307,7 @@ def reserva():
         }
         agregar_r(reservas_arch,mesa)
         print("Su reserva ha sido confirmada. Lo esperamos en A la mesa!")
-        print("")
+        print("\n\n")
         print("---------------------------------------------------")
     else:
         print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
@@ -345,7 +348,7 @@ def main():
             #hacer reserva
             if ans == 1:
                 print("Perfecto, vamos a realizar la reserva.")
-                print("")
+                print("\n\n")
                 reserva()
             #ver reserva segun dni
             elif ans == 2:
@@ -353,14 +356,14 @@ def main():
                 resv = list(filter(lambda x: x[1] == idUser, mesas))
 
                 if len(resv) != 0:
-                    print("")
+                    print("\n\n")
                     print("Se encontró la siguiente reserva: ")
                     imprimirMatriz(resv)
-                    print("")
+                    print("\n\n")
                     print("---------------------------------------------------")
                 else:
                     print("No se encontró ninguna reserva con ese DNI. ")
-                    print("")
+                    print("\n\n")
                     print("---------------------------------------------------")
                 
                 
@@ -373,7 +376,7 @@ def main():
                 if len(resv) != 0:
                     print("Se encontró la siguiente reserva: ")
                     imprimirMatriz(resv)
-                    print("")
+                    print("\n\n")
                     print("Desea eliminar esta reserva? ")
                     print("1. Si")
                     print("2. No")
@@ -388,15 +391,15 @@ def main():
                     if confirmar == 1:
                         mesas.remove(resv[0])
                         print("Su mesa ha sido eliminada.")
-                        print("")
+                        print("\n\n")
                         print("---------------------------------------------------")
                     else:
                         print("La reserva no fue eliminada.")
-                        print("")
+                        print("\n\n")
                         print("---------------------------------------------------")
                 else:
                     print("No se encontró ninguna reserva con ese DNI. ")
-                    print("")
+                    print("\n\n")
                     print("---------------------------------------------------")
 
         #Administrador
@@ -427,6 +430,7 @@ def main():
                 admin()
             else:
                 print("Perfecto, será redireccionado al menú inicial")
+'''
 
 reservas_arch = "mesas_reservadas"               
 nombre_archivo = "mesas_existentes.json"
@@ -435,5 +439,6 @@ generar_archivo(nombre_archivo,mesas_e)
 
 #prueba
 agregar_r(reservas_arch,dict)
+agregar_r(reservas_arch,dict_2)
 imprimir_reservas(reservas_arch)
-main()
+#main()

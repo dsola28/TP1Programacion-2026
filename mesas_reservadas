@@ -1,4 +1,6 @@
 Mesas reservadas: 
 
-{'nombre': 'lolo', 'dni': '123455', 'tipo mesa': 'mezaza', 'turno': 'noche'}
+{'nombre': 'lolo', 'dni': '123455', 'tipo_mesa': 'mezaza', 'turno': 'noche'}
+
+{'nombre': 'roman', 'dni': '123455', 'tipo_mesa': 'mezaza', 'turno': 'dia'}
 
