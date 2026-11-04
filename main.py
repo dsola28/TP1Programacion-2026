@@ -3,13 +3,13 @@ import json
 
 # generación y manejo del archivo json
 
-def recorrer_mesas(mesas_e):
+'''def recorrer_mesas(mesas_e):
     for turno in mesas_e:
         print(f"Turno: {turno}")
         for hora in mesas_e[turno]:
             print(f"{hora} hs")
             for tipo in mesas_e[turno][hora]:
-                print(f"{tipo}: {mesas_e[turno][hora][tipo]}")
+                print(f"{tipo}: {mesas_e[turno][hora][tipo]}")'''
 
 def generar_archivo(nombre_archivo,mesas_e):
     try:
@@ -20,6 +20,18 @@ def generar_archivo(nombre_archivo,mesas_e):
     else:
         print("Archivo JSON generado correctamente.")
 
+def traer_horarios(nombre_archivo,tipo,turno):
+    try:
+        with open(nombre_archivo,"r",encoding="UTF-8") as archivo:
+            m = json.load(archivo)
+            t = m[turno]
+            for hora,tam in t.items():
+                if tipo in tam and len(tam[tipo]) != 0:
+                    print(hora)
+                    print(tam)
+            
+    except OSError as error:
+        print("Error al generar el archivo: ", error)
 
 def generar_reservas(reservas_arch):
     try:
@@ -368,5 +380,8 @@ reservas_arch = "mesas_reservadas"
 nombre_archivo = "mesas_existentes.json"
 generar_reservas(reservas_arch)
 generar_archivo(nombre_archivo,mesas_e)
-recorrer_mesas(mesas_e)
+#recorrer_mesas(mesas_e)
+tipo = "chica"
+turno = "noche"
+traer_horarios(nombre_archivo,tipo,turno)
 main()
