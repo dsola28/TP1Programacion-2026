@@ -35,6 +35,14 @@ def agregar_r(reservas_arch,m):
 
     return
 
+def borrar_mesa_reserva(nombre_archivo,tipo,turno,hora):
+    try:
+        with open(nombre_archivo,"r",encoding="UTF-8") as archivo:
+            mesas = json.load(archivo)
+            num_mesa = mesas[turno][hora][turno]
+            mesas[turno][hora][turno].remove(num_mesa)
+        with open(reservas_arch,"")
+            
 #prueba
 dict = {
     "nombre" : "lolo",
@@ -144,15 +152,10 @@ def admin():
         print("---------------------------------------------------")
         return
 
-'''
 
-tipo_mesa = (
-    (1, 4, "chica"),
-    (5, 10, "mediana"),
-    (11, 20, "grande")
-)
+#funciona
 
-'''
+#Función para obtener que tipo de mesa segun cantidad de invitados
 def verificar_tipo(t):
     tipo = ""
     for fila in tipo_mesa:
