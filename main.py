@@ -199,12 +199,7 @@ def reserva():
         print("")
         print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
         tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
-    tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
-      while tam < 0 or tam > 20:
-          print("")
-          print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
-          tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
-      tipo = verificar_tipo(tam)
+    tipo = verificar_tipo(tam)
 
     print("")
     print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
