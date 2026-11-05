@@ -25,6 +25,20 @@ def traer_horarios(nombre_archivo,tipo,turno):
     except OSError as error:
         print("Error al generar el archivo: ", error)
     return h
+
+
+def borrar_mesa_reserva(nombre_archivo,tipo,turno,hora):
+    try:
+        with open(nombre_archivo,"r",encoding="UTF-8") as archivo:
+            mesas = json.load(archivo)
+            num_mesa = mesas[turno][hora][tipo][0]
+            mesas[turno][hora][tipo].pop(0)
+        with open(nombre_archivo, "w") as archivo:
+            json.dump(mesas, archivo, indent=4)
+    except FileNotFoundError as error:
+        print("Error, el archivo no existe")
+    return num_mesa
+
 # generación y manejo del archivo txt
 
 
@@ -32,8 +46,6 @@ def generar_reservas(reservas_arch):
     try:
         archivo = open(reservas_arch, "w", encoding="UTF-8")
         archivo.write("Mesas reservadas: \n\n")
-
-
     except OSError as error:
         print("ERROR al trabajar con el archivo:", error)
 
@@ -50,22 +62,35 @@ def agregar_r(reservas_arch,m):
         print("Error, el archivo no existe")    
     except OSError as error:
         print("Error al trabajar con el archivo: ",error)
-    
-
     return
 
-def borrar_mesa_reserva(nombre_archivo,tipo,turno,hora):
+
+
+
+def buscar_reserva(reservas_arch,dni):
+    reserva = {}
     try:
-        with open(nombre_archivo,"r",encoding="UTF-8") as archivo:
-            mesas = json.load(archivo)
-            num_mesa = mesas[turno][hora][tipo][0]
-            mesas[turno][hora][tipo].pop(0)
-        with open(nombre_archivo, "w") as archivo:
-            json.dump(mesas, archivo, indent=4)
+        with open(reservas_arch,"r",encoding="UTF-8") as archivo:
+            for linea in archivo:
+                if len(linea) > 3 and "'" in linea:
+                    partes = linea.strip().split("'")
+                    if int(partes[7]) == dni:
+                        print("hola")
+                        reserva = {
+                            "nombre" : partes[3],
+                            "dni" : partes[7],
+                            "tipo_mesa" : partes[11],
+                            "numero_mesa" : partes[15],
+                            "turno" : partes[19],
+                            "horario" : partes[23]
+                        }
+                    #hasta aca trae la reserva segun el dni, ahora hay que hacer con lambda que la escriba para el usuario
     except FileNotFoundError as error:
         print("Error, el archivo no existe")
-    return num_mesa
-            
+    except OSError as error:
+        print("Error al trabajar con el archivo: ",error)
+    return reserva
+
 #prueba
 dict = {
     "nombre" : "lolo",
@@ -187,21 +212,22 @@ def reserva():
     # mesa = [nombre,id,tamaño,turno,horario]
     mesaUsuario = []
     nom = input("Ingrese su nombre (sin apellido): ")
-    print("")
+    print("\n\n")
     id_user = input("Ingrese su DNI (sin comas ni puntos y si tiene menos de 8 digitos rellenar con 0): ")
-    print("")
+    print("\n\n")
     while not re.match(r"^\d{8}$", id_user):
         id_user = input("Dni invalido. Ingreselo de nuevo: ")
     while id_user in id_usado:
         id_user = input("Dni invalido, ya fue utilizado. Ingrese uno nuevo: ")
     tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     while tam < 0 or tam > 20:
-        print("")
+        print("\n\n")
         print("El tamaño de grupo ingresado es inválido. Intente nuevamente.")
         tam = int(input("Ingrese el tamaño de grupo que asistirá: "))
     tipo = verificar_tipo(tam)
 
-    print("")
+
+    print("\n\n")
     print("Para continuar con su reserva, por favor seleccione el tiempo del día que asistirá: ")
     print("1. Mediodia")
     print("2. Noche")
@@ -249,58 +275,46 @@ def reserva():
 
     print("Usted eligió el horario: ",hora,"hs .")
 
-    print("-------------------------")
+    print("-"*30)
     print("Resumen de su reserva:")
     print("Nombre:", nom)
     print("DNI:", id_user)
     print("Tamaño de mesa:", tam)
-    print("Horario:", hora, " hs.")
+    print("Horario:", hora, " hs.\n\n")
 
-    print("")
-
-    print("Desea confirmar la reserva?")
-    print("1. Si")
-    print("2. No")
-
+    print("Desea confirmar la reserva?\n\n1. Si\n\n2. No\n\n")
     reserva = int(input("Ingrese el número correspondiente: "))
     while reserva != 1 and reserva != 2:
         reserva = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
-
-    #Si el usuario elige confirmar la reserva, el sistema agrega todos sus datos a la matris de mesas reservadas.
+   #Si el usuario decide confirmar su reserva, el sistema lo agrega todo a un diccionario que luego se envia al archivo txt
     if reserva == 1:
-        turno = "noche"
-        hora = "20:00"
         id_usado.append(id_user) # ahora solo guarda el dni cuando confirma la reserva
         num = borrar_mesa_reserva(nombre_archivo,tipo,turno,hora)
         mesa = {
             "nombre" : nom,
             "dni" : id_user,
             "tipo_mesa" : tipo,
-            "num_mesa" : num,
-            #"turno"  : turno,
-            #"hora" : hora
+            "num_mesa" : str(num),
+            "turno"  : turno,
+            "hora" : hora
         }
         
         agregar_r(reservas_arch,mesa)
       
         print("Su reserva ha sido confirmada. Lo esperamos en A la mesa!")
-        print("")
-        print("---------------------------------------------------")
+        print("-"*30)
     else:
         print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
     return 
 
 def main():
     terminar = False
-
-    print("Bienvenido a A la mesa!" )
+    print("Bienvenido a A la mesa!\n" )
 
     #código admin: 6767
 
     while not terminar:
-        print("¿Cómo desea ingresar? ")
-        print("1. Ingresar como comensal")
-        print("2. Ingresar como administrador.")
+        print("¿Cómo desea ingresar?\n1. Ingresar como comensal\n2. Ingresar como administrador.\n")
         res = int(input("Ingrese el número correspondiente a su respuesta: "))
 
         #verificar res dentro de rango
@@ -310,11 +324,8 @@ def main():
             
         #Comensal
         if res == 1:
-            print("---------------------------------------------------")
-            print("Bienvenido usuario, que acción desea realizar: ")
-            print("1. Hacer una reserva")
-            print("2. Ver mi reserva")
-            print("3. Eliminar mi reserva")
+            print("-"*30)
+            print("Bienvenido usuario, que acción desea realizar:\n1. Hacer una reserva\n2. Ver mi reserva\n3. Eliminar mi reserva")
             ans = int(input("Ingrese el número correspondiente a su respuesta: "))
 
             #verificar ans dentro de rango
@@ -325,11 +336,15 @@ def main():
             #hacer reserva
             if ans == 1:
                 print("Perfecto, vamos a realizar la reserva.")
-                print("")
+                print("\n")
                 reserva()
             #ver reserva segun dni
+            #ACA funcion nueva para traer mesas
             elif ans == 2:
-                idUser = input("Ingrese su DNI con el que realizó su reserva: ")
+                idUser = int(input("Ingrese su DNI con el que realizó su reserva: "))
+                print(buscar_reserva(reservas_arch,idUser))
+                '''
+                
                 resv = list(filter(lambda x: x[1] == idUser, mesas))
 
                 if len(resv) != 0:
@@ -342,7 +357,7 @@ def main():
                     print("No se encontró ninguna reserva con ese DNI. ")
                     print("")
                     print("---------------------------------------------------")
-                
+                '''
                 
             #borrar reserva con filter map
             else:
