@@ -11,6 +11,17 @@ import json
             for tipo in mesas_e[turno][hora]:
                 print(f"{tipo}: {mesas_e[turno][hora][tipo]}")'''
 
+def borrar_horario(reserva_borrada):
+    turno = reserva_borrada[3]
+    hora = reserva_borrada[4]
+    if turno == 1:
+        horarios["mañana"].append(hora)
+        horarios["mañana"].sort()
+    else:
+        horarios["noche"].append(hora)
+        horarios["noche"].sort()
+    return
+
 def generar_archivo(nombre_archivo,mesas_e):
     try:
         with open(nombre_archivo, "w", encoding="UTF-8") as archivo:
@@ -332,6 +343,7 @@ def main():
                         confirmar = int(input("Respuesta inválida. Ingrese el número correspondiente a su respuesta: "))
 
                     if confirmar == 1:
+                        '''borrar_horario(resv[0])'''
                         mesas.remove(resv[0])
                         print("Su mesa ha sido eliminada.")
                         print("")
