@@ -11,6 +11,7 @@ import json
             for tipo in mesas_e[turno][hora]:
                 print(f"{tipo}: {mesas_e[turno][hora][tipo]}")'''
 
+'''
 def borrar_horario(reserva_borrada):
     turno = reserva_borrada[3]
     hora = reserva_borrada[4]
@@ -21,6 +22,7 @@ def borrar_horario(reserva_borrada):
         horarios["noche"].append(hora)
         horarios["noche"].sort()
     return
+'''
 
 def generar_archivo(nombre_archivo,mesas_e):
     try:
@@ -32,17 +34,17 @@ def generar_archivo(nombre_archivo,mesas_e):
         print("Archivo JSON generado correctamente.")
 
 def traer_horarios(nombre_archivo,tipo,turno):
+    h=[]
     try:
         with open(nombre_archivo,"r",encoding="UTF-8") as archivo:
             m = json.load(archivo)
             t = m[turno]
             for hora,tam in t.items():
                 if tipo in tam and len(tam[tipo]) != 0:
-                    print(hora)
-                    print(tam)
-            
+                    h.append(hora)
     except OSError as error:
         print("Error al generar el archivo: ", error)
+    return h
 
 def generar_reservas(reservas_arch):
     try:
@@ -57,7 +59,6 @@ def generar_reservas(reservas_arch):
 tipo_mesa = ((1, 4, "chica"),(5, 10, "mediana"),(11, 20, "grande"))
 
 mesas_e = { 
-
     ("mañana"): {
         "12:00" : {
             "chica":[1,2,3,4],
@@ -189,43 +190,40 @@ def reserva():
         turno = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
 
     if turno == 1:
-        print("")
-        print("Las opciones de horario al mediodía son:")
-        for i in range(0,len(horarios["mañana"])):
-            print(f"{i+1}. {horarios["mañana"][i]}")
-        print("")
-        hora = int(input("Ingrese el número correspondiente a su respuesta: "))
-
-        while hora != 1 and hora != 2 and hora != 3 and hora != 4:
-            hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
-            
-        i = 0
-        while i < len(horarios["mañana"]):
-            if hora == i+1:
-                hora = horarios["mañana"][i]
-            else:
-                i+=1
-
+        turno = "mañana"
     else:
-        print("")
-        print("Las opciones de horario a la noche son: ")
-        for i in range(0,len(horarios["noche"])):
-            print(f"{i+1}. {horarios["mañana"][i]}")
-        print("")
-
-        hora = int(input("Ingrese el número correspondiente a su respuesta: "))
-
-        while hora != 1 and hora != 2 and hora != 3 and hora != 4:
-            hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
-
-        i = 0
-        while i < len(horarios["noche"]):
-            if hora == i+1:
-                hora = horarios["noche"][i]
+        turno = "noche"
+    horarios = traer_horarios(nombre_archivo,tipo,turno)
+    while horarios == []:
+        print("No hay horarios disponibles para el tipo de mesa y turno seleccionado. Por favor intente nuevamente.")
+        print("Desea ver los horarios del otro turno?")
+        resp = int(input("1. Si\n2. No, no deseo continuar con la reserva\nIngrese el número correspondiente a su respuesta: "))
+        while resp != 1 and resp != 2:
+            turno = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+        if resp == 1:
+            if turno == "mañana":
+                turno = "noche"
             else:
-                i+=1
-      
-        
+                turno = "mañana"
+            horarios = traer_horarios(nombre_archivo,tipo,turno)
+        else:
+            print("Usted ha cancelado su reserva. Lo esperamos en otra ocasión.")
+            return
+
+    print(f"Las opciones de horario en el turno: {turno}, son:")
+    for i in range(0,len(horarios)):
+        print(f"{i+1}. {horarios[i]}")
+    hora = int(input("Ingrese el número correspondiente a su respuesta: "))
+
+    while hora != 1 and hora != 2 and hora != 3 and hora != 4:
+        hora = int(input("Respuesta Inválida. Ingrese el número de su respuesta"))
+            
+    i = 0
+    while i < len(horarios):
+        if hora == i+1:
+            hora = horarios[i]
+        else:
+            i+=1
 
     print("Usted eligió el horario: ",hora,"hs .")
 
@@ -393,7 +391,5 @@ nombre_archivo = "mesas_existentes.json"
 generar_reservas(reservas_arch)
 generar_archivo(nombre_archivo,mesas_e)
 #recorrer_mesas(mesas_e)
-tipo = "chica"
-turno = "noche"
-traer_horarios(nombre_archivo,tipo,turno)
+
 main()
