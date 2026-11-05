@@ -39,9 +39,13 @@ def borrar_mesa_reserva(nombre_archivo,tipo,turno,hora):
     try:
         with open(nombre_archivo,"r",encoding="UTF-8") as archivo:
             mesas = json.load(archivo)
-            num_mesa = mesas[turno][hora][turno]
-            mesas[turno][hora][turno].remove(num_mesa)
-        with open(reservas_arch,"")
+            num_mesa = mesas[turno][hora][tipo][0]
+            mesas[turno][hora][tipo].pop(0)
+        with open(nombre_archivo, "w") as archivo:
+            json.dump(mesas, archivo, indent=4)
+    except FileNotFoundError as error:
+        print("Error, el archivo no existe")
+    return num_mesa
             
 #prueba
 dict = {
@@ -265,15 +269,21 @@ def reserva():
         else: 
             horarios["noche"].remove(hora)
         '''
+        turno = "noche"
+        hora = "20:00"
         id_usado.append(id_user) # ahora solo guarda el dni cuando confirma la reserva
+        num = borrar_mesa_reserva(nombre_archivo,tipo,turno,hora)
         mesa = {
             "nombre" : nom,
             "dni" : id_user,
             "tipo_mesa" : tipo,
+            "num_mesa" : num,
             #"turno"  : turno,
             #"hora" : hora
         }
+        
         agregar_r(reservas_arch,mesa)
+      
         print("Su reserva ha sido confirmada. Lo esperamos en A la mesa!")
         print("")
         print("---------------------------------------------------")
