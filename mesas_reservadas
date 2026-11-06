@@ -1,6 +1,0 @@
-Mesas reservadas: 
-
-{'nombre': 'lolo', 'dni': '123455', 'color': 'rojo'}
-
-{'nombre': 'lolo', 'dni': '12345678', 'tipo_mesa': 'grande', 'num_mesa': '8', 'turno': 'mañana', 'hora': '12:00'}
-
