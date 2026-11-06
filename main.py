@@ -242,11 +242,6 @@ def imprimir_reservas(reservas_arch):
                 print(F'Horario             {horario}')
                 print(F'Número de mesa:     {num_mesa}')
                 print("-"*30)
-
-            #
-           
-
-        # Cerramos el archivo
         archivo.close()
     except FileNotFoundError:
         print("Error, el archivo no existe")
