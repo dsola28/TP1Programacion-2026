@@ -197,59 +197,95 @@ def imprimir_reservas(reservas_arch):
     archivo = open(reservas_arch, "r", encoding="UTF-8")
 
     print("Reservas: \n")
+    print("-"*30)
     # Recorremos directamente el archivo
     for linea in archivo:
         # Verificamos que la línea tenga texto y además contenga comillas
         if len(linea) > 3 and "'" in linea:
             partes = linea.strip().split("'")
             # Ahora es seguro acceder a los índices
-            datos = [partes[3], partes[5], partes[7], partes[11], partes[15]]
-            nombre = datos[0]
-            dni = datos[1]
-            tipo_mesa = datos[2]
-            turno = datos[3] 
-        # horario = datos[4]
-        #   Numero_Mesa = datos[5]
+            nombre =  partes[3]
+            dni =  partes[7]
+            tipo =  partes[11]
+            num_mesa = partes[15]
+            turno = partes[19]
+            horario = partes[23]
             
             print(F'Nombre:             {nombre}')
             print(F'DNI:                {dni}')
-            print(F'Tipo de mesa:       {tipo_mesa}')
+            print(F'Tipo de mesa:       {tipo}')
             print(F'Turno:              {turno}')
-            print("\n\n")
+            print(F'Horario             {horario}')
+            print(F'Número de mesa:     {num_mesa}')
+            print("-"*30)
 
-       
-        #print(F"Horario" {horario})
-        #print(F"Número de mesa: " {numero_mesa})
+        #
        
 
     # Cerramos el archivo
     archivo.close()
 #modificar
+
+def mesas_disponibles(nombre_archivo, plantilla):
+    try:
+        with open(nombre_archivo, "r", encoding="UTF-8") as archivo:
+            actual = json.load(archivo)
+    except FileNotFoundError:
+        print("Error, el archivo no existe")
+        return
+
+    print("Mesas disponibles:")
+    for turno, horarios in actual.items():
+        print("-" * 30)
+        print(f"Turno: {turno}")
+        print("-" * 30)
+        libres_por_hora = []  
+        for hora, tipos in horarios.items():
+            print("\n")
+            print("-" * 30)
+            print(f"\n  Hora: {hora}")
+            libres_hora = set()
+            for tipo, numeros in tipos.items():
+                libres = set(numeros)
+                todas = set(plantilla[turno][hora][tipo])
+                #diferencia
+                reservadas = todas - libres         
+                #union
+                libres_hora |= libres
+                print(f"    {tipo}: libres {sorted(libres)} - reservadas {sorted(reservadas)}")
+
+            libres_por_hora.append(libres_hora)
+
+        # Intersección: mesas libres en TODOS los horarios del turno
+        if libres_por_hora:
+            siempre_libres = set.intersection(*libres_por_hora)
+            print("\n")
+            print("-" * 30)
+            print(f"\n  Libres en todos los horarios de {turno}: {sorted(siempre_libres)}")
 #Funciones de administrador
 
 def admin():
-    print("---------[ ADMIN ]---------")
-    print("Elija la acción a realizar: ")
-    print("1. Ver las mesas reservadas")
-    print("2. Volver al menú principal")
+    print("-"*30)
+    print("\nBienvenido administrador, ahora podrá acceder a las funciones de administración.\n")
+    print("Elija la acción a realizar:\n1. Ver las mesas reservadas\n2. Ver las mesas Disponibles\n3. Volver al menú principal\n")
     res = int(input("Ingrese el número de su respuesta: "))
-    print("\n\n")
+    print("\n")
 
     #verificar res dentro de rango
-    while res != 1 and res != 2:
+    while res != 1 and res != 2 and res!= 3:
         res = int(input("Respuesta Inválida. Ingrese el número de su respuesta: "))
-    print("\n\n")
+    print("\n")
+
     if res == 1:
         imprimir_reservas(reservas_arch)
-        print("\n\n")
-        print("Perfecto, será redireccionado al menú principal.")
-        print("\n\n")
+        print("\nPerfecto, será redireccionado al menú principal.\n")
         print("-"*30)
         return
-      
+    elif res == 2:
+        mesas_disponibles(nombre_archivo,mesas_e)
     else: 
         print("Perfecto, será redireccionado al menú principal.")
-        print("\n\n")
+        print("\n")
         print("-"*30)
         return
 
@@ -343,7 +379,7 @@ def reserva():
     print("Tamaño de mesa:", tam)
     print("Horario:", hora, " hs.\n\n")
 
-    print("Desea confirmar la reserva?\n\n1. Si\n\n2. No\n\n")
+    print("Desea confirmar la reserva?\n\n1. Si\n2. No\n")
     reserva = int(input("Ingrese el número correspondiente: "))
 
     #Verifica respuesta dentro de rango
@@ -458,7 +494,7 @@ def main():
                 print("\nBienvenido administrador, puede acceder a las funciones de administración.")
                 admin()
             else:
-                print("\nPerfecto, será redireccionado al menú inicial\n")
+                print("Perfecto, será redireccionado al menú inicial\n")
                 print("-"*30)
 
 
