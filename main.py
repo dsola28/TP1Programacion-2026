@@ -191,15 +191,40 @@ def borrar_reserva(reservas_arch,dni):
 
 
 
+#funcion para admin para imprimir todas las reservas hechas
+def imprimir_reservas(reservas_arch):
+ # Abrimos el archivo en modo lectura
+    archivo = open(reservas_arch, "r", encoding="UTF-8")
 
-#Función para imprimir reservas
-def imprimirMatriz(tabla): 
-    print("Titular ====== DNI ====== Tamaño == Turno == Hora")
-    for i in range (0, len(tabla)):
-        print(tabla[i][0], "======", tabla[i][1],"===", tabla[i][2], "===", tabla[i][3], "===", tabla[i][4])
-    return
+    print("Reservas: \n")
+    # Recorremos directamente el archivo
+    for linea in archivo:
+        # Verificamos que la línea tenga texto y además contenga comillas
+        if len(linea) > 3 and "'" in linea:
+            partes = linea.strip().split("'")
+            # Ahora es seguro acceder a los índices
+            datos = [partes[3], partes[5], partes[7], partes[11], partes[15]]
+            nombre = datos[0]
+            dni = datos[1]
+            tipo_mesa = datos[2]
+            turno = datos[3] 
+        # horario = datos[4]
+        #   Numero_Mesa = datos[5]
+            
+            print(F'Nombre:             {nombre}')
+            print(F'DNI:                {dni}')
+            print(F'Tipo de mesa:       {tipo_mesa}')
+            print(F'Turno:              {turno}')
+            print("\n\n")
 
+       
+        #print(F"Horario" {horario})
+        #print(F"Número de mesa: " {numero_mesa})
+       
 
+    # Cerramos el archivo
+    archivo.close()
+#modificar
 #Funciones de administrador
 
 def admin():
@@ -208,26 +233,26 @@ def admin():
     print("1. Ver las mesas reservadas")
     print("2. Volver al menú principal")
     res = int(input("Ingrese el número de su respuesta: "))
-    print("")
+    print("\n\n")
 
     #verificar res dentro de rango
     while res != 1 and res != 2:
-             res = int(input("Respuesta Inválida. Ingrese el número de su respuesta: "))
-    print("")
+        res = int(input("Respuesta Inválida. Ingrese el número de su respuesta: "))
+    print("\n\n")
     if res == 1:
-        print("Lista de mesas Reservadas: ")
-        imprimirMatriz(mesas)
-        print("")
+        imprimir_reservas(reservas_arch)
+        print("\n\n")
         print("Perfecto, será redireccionado al menú principal.")
-        print("")
-        print("---------------------------------------------------")
+        print("\n\n")
+        print("-"*30)
         return
       
     else: 
         print("Perfecto, será redireccionado al menú principal.")
-        print("")
-        print("---------------------------------------------------")
+        print("\n\n")
+        print("-"*30)
         return
+
 
 
 #funciona
