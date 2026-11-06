@@ -179,8 +179,7 @@ def borrar_reserva(reservas_arch,dni):
                 if len(linea) > 3 and "'" in linea:
                     datos = linea.strip().split("'")
                     if int(datos[7]) == dni:
-                        # Es la reserva a borrar: no se copia
-                        # y se salta la línea en blanco que le sigue
+                       
                         tipo = datos[11]
                         num_mesa = int(datos[15])
                         turno = datos[19]
@@ -243,10 +242,6 @@ def imprimir_reservas(reservas_arch):
                 print(F'Número de mesa:     {num_mesa}')
                 print("-"*30)
 
-            #
-           
-
-        # Cerramos el archivo
         archivo.close()
     except FileNotFoundError:
         print("Error, el archivo no existe")
